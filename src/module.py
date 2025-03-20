@@ -181,3 +181,28 @@ class Optim:
         self.net.zero_grad()
         self.net.backward(batch_x, batch_y, self.loss)
         self.net.update_parameters(self.eps)
+
+
+class Softmax(Module):
+    def forward(self, X):
+        exp_X = np.exp(X - np.max(X, axis=1, keepdims=True)) 
+        return exp_X / np.sum(exp_X, axis=1, keepdims=True)
+
+    def backward_delta(self, X, delta):
+        return delta  
+    
+    def backward_update_gradient(self, X, delta):
+        pass
+
+    def update_parameters(self, lr):
+        pass
+
+
+class CrossEntropyLoss(Loss):
+    def forward(self, y, yhat):
+
+        yhat = np.clip(yhat, 1e-9, 1.0) 
+        return -np.sum(y * np.log(yhat)) / y.shape[0]
+
+    def backward(self, y, yhat):
+        return (yhat - y) / y.shape[0] 
