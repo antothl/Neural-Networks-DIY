@@ -45,10 +45,6 @@ class Linear(Module):
                 
         if delta.ndim == 1:
             delta = delta.reshape(-1, 1)
-
-        # Vérification après reshape
-        print(f"delta reshaped shape: {delta.shape}")
-
         self._gradient += (input.T @ delta)
 
 
@@ -147,9 +143,9 @@ class Sequentiel(Module):
         self.modules = list(modules)
     
     def forward(self, X):
-        self.inputs = []  # Stocker les entrées avant chaque module
+        self.inputs = []  
         for module in self.modules:
-            self.inputs.append(X)  # Stocke avant transformation
+            self.inputs.append(X)  
             X = module.forward(X)
         return X
 
@@ -157,13 +153,11 @@ class Sequentiel(Module):
         y_hat = self.forward(X)
         delta = loss.backward(y, y_hat)
 
-        # 1. Calculer d'abord tous les deltas
         deltas = [None] * len(self.modules)  
         for i in range(len(self.modules) - 1, -1, -1):
             deltas[i] = delta  
             delta = self.modules[i].backward_delta(self.inputs[i], delta)
 
-        # 2. Mettre à jour les gradients pour les couches linéaires
         for i, module in enumerate(self.modules):
             if isinstance(module, Linear):  
                 module.backward_update_gradient(self.inputs[i], deltas[i])
@@ -177,3 +171,13 @@ class Sequentiel(Module):
             module.zero_grad()
 
 
+class Optim:
+    def __init__(self, net, loss, eps):
+        self.net = net
+        self.loss = loss
+        self.eps = eps
+
+    def step(self, batch_x, batch_y):
+        self.net.zero_grad()
+        self.net.backward(batch_x, batch_y, self.loss)
+        self.net.update_parameters(self.eps)
