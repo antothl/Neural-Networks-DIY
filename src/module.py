@@ -152,14 +152,13 @@ class Sequentiel(Module):
     def backward(self, X, y, loss):
         y_hat = self.forward(X)
         delta = loss.backward(y, y_hat)
+        self.modules[-1].backward_update_gradient(self.inputs[-1], delta)
 
         deltas = [None] * len(self.modules)  
         for i in range(len(self.modules) - 1, -1, -1):
             deltas[i] = delta  
             delta = self.modules[i].backward_delta(self.inputs[i], delta)
-
-            if isinstance(self.modules[i], Linear):  
-                self.modules[i].backward_update_gradient(self.inputs[i], deltas[i])
+            self.modules[i].backward_update_gradient(self.inputs[i], deltas[i])
 
 
     def update_parameters(self, lr):

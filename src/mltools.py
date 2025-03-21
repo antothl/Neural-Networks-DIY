@@ -82,3 +82,14 @@ def gen_arti(centerx=1,centery=1,sigma=0.1,nbex=1000,data_type=0,epsilon=0.02):
     data=data[idx,:]
     y=y[idx]
     return data,y.reshape(-1, 1)
+
+
+def gen_arti2(data_type=0, epsilon=0.1):
+    from sklearn.datasets import make_moons, make_circles, make_classification
+    if data_type == 0:
+        X, y = make_moons(n_samples=1000, noise=epsilon)
+    elif data_type == 1:
+        X, y = make_circles(n_samples=1000, noise=epsilon)
+    else:
+        X, y = make_classification(n_samples=1000, n_features=2, n_redundant=0, n_informative=2, n_clusters_per_class=1, class_sep=1.5, random_state=42)
+    return X, y
