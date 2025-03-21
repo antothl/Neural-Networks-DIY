@@ -182,26 +182,42 @@ class Optim:
         self.net.update_parameters(self.eps)
 
 
-class Softmax(Module):
-    def forward(self, X):
-        exp_X = np.exp(X - np.max(X, axis=1, keepdims=True)) 
-        return exp_X / np.sum(exp_X, axis=1, keepdims=True)
+class Softmax:
+    def forward(self, x):
+        exp_x = np.exp(x - np.max(x, axis=1, keepdims=True)) 
+        return exp_x / np.sum(exp_x, axis=1, keepdims=True)
 
-    def backward_delta(self, X, delta):
-        return delta  
+    def backward(self, grad_output):
+        return grad_output
     
     def backward_update_gradient(self, X, delta):
-        pass
-
+        pass  
+    
     def update_parameters(self, lr):
-        pass
+        pass 
 
 
-class CrossEntropyLoss(Loss):
-    def forward(self, y, yhat):
+class CrossEntropyLoss:
+    def forward(self, y_true, y_pred):
+        epsilon = 1e-12 
+        y_pred = np.clip(y_pred, epsilon, 1.0 - epsilon)
+        return -np.sum(y_true * np.log(y_pred)) / y_true.shape[0]
 
-        yhat = np.clip(yhat, 1e-9, 1.0) 
-        return -np.sum(y * np.log(yhat)) / y.shape[0]
+    def backward(self, y_true, y_pred):
 
-    def backward(self, y, yhat):
-        return (yhat - y) / y.shape[0] 
+        return y_pred - y_true 
+    
+    def backward_update_gradient(self, X, delta):
+        pass  
+    
+    def update_parameters(self, lr):
+        pass 
+
+class LogSoftmax:
+    def forward(self, x):
+
+        logsumexp = np.log(np.sum(np.exp(x - np.max(x, axis=1, keepdims=True)), axis=1, keepdims=True))
+        return x - np.max(x, axis=1, keepdims=True) - logsumexp
+
+    def backward(self, y_true, y_pred):
+        return y_pred - y_true
