@@ -158,9 +158,9 @@ class Sequentiel(Module):
             deltas[i] = delta  
             delta = self.modules[i].backward_delta(self.inputs[i], delta)
 
-        for i, module in enumerate(self.modules):
-            if isinstance(module, Linear):  
-                module.backward_update_gradient(self.inputs[i], deltas[i])
+            if isinstance(self.modules[i], Linear):  
+                self.modules[i].backward_update_gradient(self.inputs[i], deltas[i])
+
 
     def update_parameters(self, lr):
         for module in self.modules:
