@@ -195,7 +195,10 @@ class Softmax:
     
     def update_parameters(self, lr):
         pass 
-
+    def zero_grad(self):
+        pass
+    def backward_delta(self, x, delta):
+        return delta
 
 class CrossEntropyLoss:
     def forward(self, y_true, y_pred):
