@@ -1,13 +1,5 @@
 import numpy as np
 
-
-class Loss(object):
-    def forward(self, y, yhat):
-        raise NotImplementedError
-
-    def backward(self, y, yhat):
-        raise NotImplementedError
-
 class Module(object):
     def __init__(self):
         self._parameters = None
@@ -33,7 +25,7 @@ class Module(object):
 class Linear(Module):
     def __init__(self, input_dim, output_dim):
         super().__init__()
-        self._parameters = np.random.randn(input_dim + 1, output_dim) * np.sqrt(2 / (input_dim + output_dim))
+        self._parameters = np.random.randn(input_dim + 1, output_dim)
         self._gradient = np.zeros((input_dim + 1, output_dim))
 
     def forward(self, X):
@@ -41,28 +33,16 @@ class Linear(Module):
         return X @ self._parameters  
 
     def backward_update_gradient(self, input, delta):
-        input = np.hstack([input, np.ones((input.shape[0], 1))])  
-                
+        input = np.hstack([input, np.ones((input.shape[0], 1))])                  
         if delta.ndim == 1:
             delta = delta.reshape(-1, 1)
         self._gradient += (input.T @ delta)
-
 
     def backward_delta(self, input, delta):
         if delta.ndim == 1:
             delta = delta.reshape(-1, 1)
 
         return delta @ self._parameters[:-1].T  
-
-# Fonction de perte
-class MSELoss(Loss):
-    def forward(self, y, yhat):
-        
-        return (y - yhat) ** 2  
-
-    def backward(self, y, yhat):
-        assert y.shape == yhat.shape, f"Dimension y : {y.shape}, yhat : {yhat.shape}"
-        return (-2 * (y - yhat) / y.shape[0]).reshape(-1, 1)  
 
 
 class TanH(Module):
@@ -107,13 +87,9 @@ class SimpleNN(Module):
 
     def forward(self, X):
         self.z1 = self.linear1.forward(X)     
-        print(self.z1.shape)   
         self.a1 = self.tanh.forward(self.z1)  
-        print(self.a1.shape)  
         self.z2 = self.linear2.forward(self.a1)
-        print(self.z2.shape)  
         y_hat = self.sigmoid.forward(self.z2)
-        print(y_hat.shape)  
     
         return y_hat
 
@@ -200,21 +176,6 @@ class Softmax:
     def backward_delta(self, x, delta):
         return delta
 
-class CrossEntropyLoss:
-    def forward(self, y_true, y_pred):
-        epsilon = 1e-12 
-        y_pred = np.clip(y_pred, epsilon, 1.0 - epsilon)
-        return -np.sum(y_true * np.log(y_pred)) / y_true.shape[0]
-
-    def backward(self, y_true, y_pred):
-
-        return y_pred - y_true 
-    
-    def backward_update_gradient(self, X, delta):
-        pass  
-    
-    def update_parameters(self, lr):
-        pass 
 
 class LogSoftmax:
     def forward(self, x):
