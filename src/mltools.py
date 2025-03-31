@@ -92,4 +92,4 @@ def gen_arti2(data_type=0, epsilon=0.1):
         X, y = make_circles(n_samples=1000, noise=epsilon)
     else:
         X, y = make_classification(n_samples=1000, n_features=2, n_redundant=0, n_informative=2, n_clusters_per_class=1, class_sep=1.5, random_state=42)
-    return X, y
+    return X, y.reshape(-1, 1)

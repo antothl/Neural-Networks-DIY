@@ -80,6 +80,27 @@ Le reste des méthodes seront implémentées dans les classes filles qui hérite
 Cette seconde classe abstraite nous permet donc de disposer des méthodes pour implémenter les différentes fonction de perte que nous souhaiterions utiliser dans notre réseau de neurones. Elle ne dispose que de deux méthodes : $forward$, qui prend en paramètre deux entrées et calcule le coût, et la méthode $backward$, qui va nous permettre de calculer le coup du gradient par rapport à une entrée. Il n'y a donc pas besoin de les implémenter pour l'instant : il faudra le faire spécifiquement en fonction des fonctions de coûts que nous souhaitons mettre en place.
 
 \section{Mon premier est ... linéaire !}
-On commence donc par implémenter la perte MSE et un module linéaire, ce qui va nous permettre de réaliser tout d'abord des régressions linéaires.
+\subsection{Implémentation de la perte MSE}
+On commence donc par implémenter la fonction de perte Mean Squared Error (MSE), qui est la fonction la plus couramment utilisée pour les régressions linéaires.\[
+\text{MSE}(y, \hat{y}) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+\]
+où \(y\) est le vecteur des valeurs réelles, \(\hat{y}\) est le vecteur des prédictions, et \(n\) est le nombre d'échantillons. Pour ceci, on commence par déclarer la méthode \textbf{forward}, qui va nous permettre de calculer la perte entre les deux vecteurs d'entrée. On commence par vérifier que les deux vecteurs sont bien de la même taille, puis on calcule la somme des carrés des différences entre les deux vecteurs, on pourra ainsi calculer la moyenne dans notre descente de gradient. On récupère ainsi notre perte. On implémente ensuite la méthode backward, qui correspond au calcul de gradient de notre perte, s'exprimant ainsi :
+\[
+\frac{\partial \text{MSE}}{\partial \hat{y}} = -{2} (y - \hat{y})
+\]
+Cela va nous permettre d'obtenir les valeurs des gradients de notre perte et donc de pouvoir effectuer notre backpropagation.
+
+La classe \texttt{MSELoss} hérite de la classe \texttt{Loss} et implémente les méthodes \texttt{forward} et \texttt{backward} pour calculer respectivement la perte et le gradient.
+
+\subsection{Implémentation du module linéaire}
+Le module linéaire, est une brique fondamentale de notre implémentation de réseau de neurones. Celle-ci hérite de la classe \textbf{Module}, et possède comme paramètre une matrice de poids de de dimension entrée/sortie. On ajoute une dimension de plus en entrée qui correspond à un vecteur de biais, facilitant l'implémentation de celui-ci. Pour la variable $gradient$, on crée une matrice remplie de zéro de la même taille.\\
+
+Pour la méthode \textbf{forward}, on commence donc par ajouter un vecteur unitaire de biais dans nos données X, grâce à la fonction \textbf{hstack}. On effectue ensuite le produit matricielle grâce à l'opérateur $@$, qui est équivalent à la fonction \textbf{np.dot}.\\
+On passe ensuite à la méthode \textbf{backward-update-gradient}, dans laquelle on commence par vérifier les bonnes dimensions de nos paramètres, mais aussi par ajouter un vecteur unitaire pour le biais. On ajoute ensuite notre gradient, obtenu par produit matriciel, dans la variable $self.gradient$.
+
+
+
+\subsection{Expérimentation : Régression linéaire}
+Avec ces deux éléments, nous pouvons maintenant implémenter une régression linéaire simple. Nous entraînerons un modèle pour prédire une sortie continue à partir d'une entrée donnée, en minimisant la perte MSE.
 
 \end{document}

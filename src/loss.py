@@ -13,7 +13,7 @@ class MSELoss(Loss):
 
     def backward(self, y, yhat):
         assert y.shape == yhat.shape, f"Dimension y : {y.shape}, yhat : {yhat.shape}"
-        return (-2 * (y - yhat) / y.shape[0]).reshape(-1, 1)  
+        return (-2 * (y - yhat) / y.shape[0]) 
     
 class CrossEntropyLoss:
     def forward(self, y_true, y_pred):
