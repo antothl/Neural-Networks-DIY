@@ -39,7 +39,7 @@
 	\vfill
         \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\linewidth]{Logo_of_Sorbonne_University.svg.png}
+        \includegraphics[width=0.8\linewidth]{Images/Logo_of_Sorbonne_University.svg.png}
         \label{fig:enter-label}
         \end{figure}
 	\vfill
@@ -67,7 +67,7 @@ La première est la classe \textbf{Module}, qui, comme son nom l'indique, repré
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\linewidth]{module.png}
+    \includegraphics[width=0.4\linewidth]{Images/module.png}
     \caption{Diagramme de la classe Module}
     \label{fig:module}
 \end{figure}
@@ -82,7 +82,7 @@ Cette seconde classe abstraite nous permet donc de disposer des méthodes pour i
 \section{Mon premier est ... linéaire !}
 \subsection{Implémentation de la perte MSE}
 On commence donc par implémenter la fonction de perte Mean Squared Error (MSE), qui est la fonction la plus couramment utilisée pour les régressions linéaires.\[
-\text{MSE}(y, \hat{y}) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+\text{MSE}(y, \hat{y}) = (y_i - \hat{y}_i)^2
 \]
 où \(y\) est le vecteur des valeurs réelles, \(\hat{y}\) est le vecteur des prédictions, et \(n\) est le nombre d'échantillons. Pour ceci, on commence par déclarer la méthode \textbf{forward}, qui va nous permettre de calculer la perte entre les deux vecteurs d'entrée. On commence par vérifier que les deux vecteurs sont bien de la même taille, puis on calcule la somme des carrés des différences entre les deux vecteurs, on pourra ainsi calculer la moyenne dans notre descente de gradient. On récupère ainsi notre perte. On implémente ensuite la méthode backward, qui correspond au calcul de gradient de notre perte, s'exprimant ainsi :
 \[
@@ -93,14 +93,34 @@ Cela va nous permettre d'obtenir les valeurs des gradients de notre perte et don
 La classe \texttt{MSELoss} hérite de la classe \texttt{Loss} et implémente les méthodes \texttt{forward} et \texttt{backward} pour calculer respectivement la perte et le gradient.
 
 \subsection{Implémentation du module linéaire}
-Le module linéaire, est une brique fondamentale de notre implémentation de réseau de neurones. Celle-ci hérite de la classe \textbf{Module}, et possède comme paramètre une matrice de poids de de dimension entrée/sortie. On ajoute une dimension de plus en entrée qui correspond à un vecteur de biais, facilitant l'implémentation de celui-ci. Pour la variable $gradient$, on crée une matrice remplie de zéro de la même taille.\\
+
+Le module linéaire, est une brique fondamentale de notre implémentation de réseau de neurones. Celle-ci hérite de la classe \textbf{Module}, et possède comme paramètre une matrice de poids de de dimension entrée/sortie. On ajoute une dimension de plus en entrée qui correspond à un vecteur de biais, facilitant l'implémentation de celui-ci. Pour la variable $gradient$, on crée une matrice remplie de zéro de la même taille.
 
 Pour la méthode \textbf{forward}, on commence donc par ajouter un vecteur unitaire de biais dans nos données X, grâce à la fonction \textbf{hstack}. On effectue ensuite le produit matricielle grâce à l'opérateur $@$, qui est équivalent à la fonction \textbf{np.dot}.\\
 On passe ensuite à la méthode \textbf{backward-update-gradient}, dans laquelle on commence par vérifier les bonnes dimensions de nos paramètres, mais aussi par ajouter un vecteur unitaire pour le biais. On ajoute ensuite notre gradient, obtenu par produit matriciel, dans la variable $self.gradient$.
 
-
-
 \subsection{Expérimentation : Régression linéaire}
-Avec ces deux éléments, nous pouvons maintenant implémenter une régression linéaire simple. Nous entraînerons un modèle pour prédire une sortie continue à partir d'une entrée donnée, en minimisant la perte MSE.
+
+Avec ces deux éléments, nous pouvons maintenant implémenter une régression linéaire simple. Nous entraînerons un modèle pour prédire une sortie à partir d'une entrée donnée, en minimisant la perte MSE. Les premières expérimentations s'effectuent ainsi sur une simple fonction linéaire de la forme : $y=3x+4$. Comme pour toutes les expérimentations dans ce projet, nous prenons soin de séparer les données d'entraînement et de test, afin de pouvoir évaluer la performance de notre modèle sur des données non vues. Nous utilisons la fonction \textbf{train\_test\_split} de la bibliothèque \textbf{sklearn} pour cela.
+
+On dresse ainsi un graphique montrant la valeur de la perte en fonction du nombre d'itérations, ainsi qu'un second graphique montrant la valeur de la sortie prédite par rapport à la sortie réelle. On peut voir que la perte fini bien par converger, et que les valeurs prédites sont très proches des valeurs réelles. \ref{fig:res_reg_lin}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/regression_lineaire.png}
+    \caption{Loss et prédictions de la régression linéaire}
+	\label{fig:res_reg_lin}
+\end{figure}
+
+On teste ensuite sur différents problèmes de classification, en utilisant la fonction \textbf{gen\_arti} que nous avons déjà utilisé dans les différents TMEs de l'UE. On a donc trois jeux de données : le premier étant un mélange de deux gaussiennes, le deuxième un mélange de 4 gaussiennes (XOR), et enfin un échiquier. Les résultats de la classification sont visiles dans la figure \ref{fig:res_classif_reg_lin}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/classif_reg_lineaire.png}
+    \caption{Loss et prédictions de la régression linéaire}
+	\label{fig:res_classif_reg_lin}
+\end{figure}
+
+On peut donc voir que la régression linéaire fonctionne bien sur la séparation des deux gaussiennes, ce qui est logique puisque la séparation est linéaire. Pour les 4 gaussiennes, la loss converge vers des valeurs beaucoup plus haute, une régression linéaire simple ne pouvant pas suffire à résoudre un tel problème, ce qui est encore plus visible sur notre problème d'échiquier.
 
 \end{document}

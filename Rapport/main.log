@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.30)  31 MAR 2025 11:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.30)  1 APR 2025 22:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/main.tex
-(c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/main.tex
+**c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/Rapport/main.tex
+(c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/Rapport/main.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (c:/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -286,10 +286,10 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-<Logo_of_Sorbonne_University.svg.png, id=1, 803.0pt x 325.215pt>
-File: Logo_of_Sorbonne_University.svg.png Graphic file (type png)
-<use Logo_of_Sorbonne_University.svg.png>
-Package pdftex.def Info: Logo_of_Sorbonne_University.svg.png  used on input line 42.
+<Images/Logo_of_Sorbonne_University.svg.png, id=1, 803.0pt x 325.215pt>
+File: Images/Logo_of_Sorbonne_University.svg.png Graphic file (type png)
+<use Images/Logo_of_Sorbonne_University.svg.png>
+Package pdftex.def Info: Images/Logo_of_Sorbonne_University.svg.png  used on input line 42.
 (pdftex.def)             Requested size: 377.62642pt x 152.94038pt.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 47.
 (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -302,42 +302,50 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 [1
 
-{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Logo_of_Sorbonne_University.svg.png>]
-<module.png, id=13, 241.90375pt x 181.67876pt>
-File: module.png Graphic file (type png)
-<use module.png>
-Package pdftex.def Info: module.png  used on input line 70.
+{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Images/Logo_of_Sorbonne_University.svg.png>]
+<Images/module.png, id=13, 241.90375pt x 181.67876pt>
+File: Images/module.png Graphic file (type png)
+<use Images/module.png>
+Package pdftex.def Info: Images/module.png  used on input line 70.
 (pdftex.def)             Requested size: 188.8096pt x 141.80864pt.
 
 
-[1 <./module.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 96--97
-
- []
-
-
+[1 <./Images/module.png>]
 
 [2]
+<Images/regression_lineaire.png, id=28, 578.16pt x 578.16pt>
+File: Images/regression_lineaire.png Graphic file (type png)
+<use Images/regression_lineaire.png>
+Package pdftex.def Info: Images/regression_lineaire.png  used on input line 110.
+(pdftex.def)             Requested size: 377.62642pt x 377.6257pt.
+<Images/classif_reg_lineaire.png, id=29, 867.24pt x 1084.05pt>
+File: Images/classif_reg_lineaire.png Graphic file (type png)
+<use Images/classif_reg_lineaire.png>
+Package pdftex.def Info: Images/classif_reg_lineaire.png  used on input line 119.
+(pdftex.def)             Requested size: 377.62642pt x 472.03764pt.
 
-[3] (./main.aux)
+
+[3 <./Images/regression_lineaire.png>]
+
+[4 <./Images/classif_reg_lineaire.png>] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5607 strings out of 473189
- 89002 string characters out of 5719958
- 488925 words of memory out of 5000000
- 28819 multiletter control sequences out of 15000+600000
+ 5623 strings out of 473189
+ 89689 string characters out of 5719958
+ 489969 words of memory out of 5000000
+ 28835 multiletter control sequences out of 15000+600000
  562822 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,6n,77p,756b,365s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (4 pages, 177609 bytes).
+ 67i,6n,77p,764b,365s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (5 pages, 851552 bytes).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
- 47 compressed objects within 1 object stream
+ 84 PDF objects out of 1000 (max. 8388607)
+ 46 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
