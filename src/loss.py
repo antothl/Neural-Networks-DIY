@@ -15,17 +15,24 @@ class MSELoss(Loss):
         assert y.shape == yhat.shape, f"Dimension y : {y.shape}, yhat : {yhat.shape}"
         return (-2 * (y - yhat) / y.shape[0]) 
     
-class CrossEntropyLoss:
-    def forward(self, y_true, y_pred):
-        epsilon = 1e-12 
-        y_pred = np.clip(y_pred, epsilon, 1.0 - epsilon)
-        return -np.sum(y_true * np.log(y_pred)) / y_true.shape[0]
+class CrossEntropyLoss(Loss):
+    def forward(self, y, yhat):
+        yhat = np.clip(yhat, 1e-12, 1.0) 
+        return 1-np.sum(y * yhat) / y.shape[0] 
 
-    def backward(self, y_true, y_pred):
-        return y_pred - y_true 
+    def backward(self, y, yhat):
+        yhat = np.clip(yhat, 1e-12, 1.0) 
+        return (yhat - y) / y.shape[0]  
     
-    def backward_update_gradient(self, X, delta):
-        pass  
-    
-    def update_parameters(self, lr):
-        pass 
+class LogCrossEntropyLoss(Loss):
+    def forward(self, y, yhat):  
+        max_yhat = np.max(yhat, axis=1, keepdims=True)  # Stabilisation numérique
+        logsumexp = np.log(np.sum(np.exp(yhat - max_yhat), axis=1, keepdims=True))
+        log_softmax = yhat - max_yhat - logsumexp  # LogSoftmax appliqué ici
+        return -np.sum(y * log_softmax) / y.shape[0]  # Cross-Entropy avec LogSoftmax
+
+    def backward(self, y, yhat):
+        max_yhat = np.max(yhat, axis=1, keepdims=True)  # Stabilisation numérique
+        exp_yhat = np.exp(yhat - max_yhat)
+        softmax = exp_yhat / np.sum(exp_yhat, axis=1, keepdims=True)  # Softmax
+        return softmax - y  # Gradient de la cross-entropy

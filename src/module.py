@@ -134,8 +134,6 @@ class Sequentiel(Module):
             input = self.inputs[i] if i > 0 else X
             
             module.backward_update_gradient(input, delta)
-            
-            # Compute delta for previous layer
             delta = module.backward_delta(input, delta)
 
 
@@ -160,30 +158,44 @@ class Optim:
         self.net.update_parameters(self.eps)
 
 
-class Softmax:
+import numpy as np
+
+class Softmax(Module):
     def forward(self, x):
-        exp_x = np.exp(x - np.max(x, axis=1, keepdims=True)) 
+        exp_x = np.exp(x - np.max(x, axis=1, keepdims=True))  # Stabilisation numérique
         return exp_x / np.sum(exp_x, axis=1, keepdims=True)
 
-    def backward(self, grad_output):
-        return grad_output
+    def backward_delta(self, x, delta):
+
+        return delta
     
     def backward_update_gradient(self, X, delta):
-        pass  
-    
+        pass
+
     def update_parameters(self, lr):
-        pass 
+        pass
+
     def zero_grad(self):
         pass
-    def backward_delta(self, x, delta):
-        return delta
 
-
-class LogSoftmax:
+class LogSoftmax(Module):
     def forward(self, x):
-
+        self.x = x
         logsumexp = np.log(np.sum(np.exp(x - np.max(x, axis=1, keepdims=True)), axis=1, keepdims=True))
         return x - np.max(x, axis=1, keepdims=True) - logsumexp
 
-    def backward(self, y_true, y_pred):
-        return y_pred - y_true
+    def backward_delta(self, x, delta):
+        exp_x = np.exp(self.x - np.max(self.x, axis=1, keepdims=True))
+        softmax = exp_x / np.sum(exp_x, axis=1, keepdims=True)
+        return delta - np.sum(delta * softmax, axis=1, keepdims=True)
+    
+    def backward_update_gradient(self, X, delta):
+        pass
+
+    def update_parameters(self, lr):
+        pass
+
+    def zero_grad(self):
+        pass
+
+
