@@ -122,6 +122,11 @@ INPUT ./Images/classif_reg_lineaire.png
 INPUT ./Images/classif_reg_lineaire.png
 INPUT ./Images/classif_reg_lineaire.png
 INPUT ./Images/classif_reg_lineaire.png
+INPUT ./Images/sigmoide_tanh_combined.png
+INPUT ./Images/sigmoide_tanh_combined.png
+INPUT ./Images/sigmoide_tanh_combined.png
+INPUT ./Images/sigmoide_tanh_combined.png
+INPUT ./Images/sigmoide_tanh_combined.png
 INPUT main.aux
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb

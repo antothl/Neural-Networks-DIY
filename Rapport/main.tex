@@ -59,7 +59,7 @@
 
 \section{Introduction}
 Ce rapport est consacré au projet du cours Machine-Learning et consiste à réaliser une implémentation de réseau de neurones from scratch en Python, en essayant de reproduire au mieux le comportement de la très célèbre bibliothèque PyTorch. Dans celui-ci, les différents détails d'implémentation et les différentes expérimentations seront apportés. Le plan suivra celui de l'énoncé du projet, disponible dans l'archive. Le code source est également disponible dans cette dernière, ainsi que les notebooks contenant les différents tests réalisés.
-\section{Prémisses}
+\section{Prémices}
 
 Le projet se base ainsi sur une architecture modulaire, permettant d'assembler les différents éléments d'un réseau, facilitant la mise en place et le déploiement. On dispose ainsi de 2 classes principales qui serviront de classes mères pour la majorité des futures classes implémentées.
 \subsection{Classe Module}
@@ -122,5 +122,34 @@ On teste ensuite sur différents problèmes de classification, en utilisant la f
 \end{figure}
 
 On peut donc voir que la régression linéaire fonctionne bien sur la séparation des deux gaussiennes, ce qui est logique puisque la séparation est linéaire. Pour les 4 gaussiennes, la loss converge vers des valeurs beaucoup plus haute, une régression linéaire simple ne pouvant pas suffire à résoudre un tel problème, ce qui est encore plus visible sur notre problème d'échiquier.
+
+\section{Mon second est ... non linéaire !}
+\subsection{Implémentations}
+On commence donc par implémenter la fonction d'activation \textbf{TanH}, qui hérite de la classe module. Il ne suffit que d'implémenter la méthode \textbf{forward}, qui consiste simplement en un appel de la fonction $tanh$ de la bibliothèque \textbf{numpy}. On implémente ensuite la méthode \textbf{backward\_delta}, qui va nous permettre de calculer le gradient de notre fonction d'activation. Pour cela, on utilise la dérivée de notre tangente hyperbolique, ce qui nous donne, en python : 
+\[
+\text{delta} = delta * (1 - np.tanh(X) ^ 2)
+\]
+
+Pour la fonction sigmoide, on procède de la même manière, à l'exception qu'il n'y a pas de fonction sigmoide déjà implémentée dans numpy, on doit donc la définir par nous-même. On implémente ensuite la dérivée de celle-ci dans la méthode \textbf{backward\_delta}, qui s'exprime ainsi :
+\[
+\text{delta} = delta * sig * (1 - sig) \text{, avec : } sig = 1 / (1 + np.exp(-X))
+\]
+
+Enfin, afin de tester notre premier réseau de neurones, nous avons mis en place la classe \textbf{SimpleNN}, qui va nous permettre de créer un réseau constitué d'une couche linéaire, puis d'une fonction d'activation \textbf{tanh}, puis d'une seconde couche linéaire et enfin d'une fonction \textbf{sigmoide}. On implémente la méthode \textbf{forward}, qui va nous permettre de faire passer nos données dans le réseau, en appelant les différentes méthodes \textbf{forward} de chaque module, en prenant en paramètre le retour de la fonction forward de la couche précédente. Pour la méthode \textbf{backward}, on commence par calculer le gradient de la loss, puis on va calculer tous les deltas dont nous avons besoin par rétropropagation, en appelant la méthode \textbf{backward\_delta} de chaque module, en prenant en paramètre le retour de la fonction backward de la couche suivante. Enfin, on appelle la méthode \textbf{backward\_gradient\_update} sur chacune des couches linéaires. Pour les deux autres méthodes que sont \textbf{zero\_grad} et \textbf{update\_parameters}, on appelle simplement la méthode de la classe mère pour chacune des couches linéaires.
+\subsection{Expérimentation : Réseau de neurones simple}
+
+On teste donc sur les mêmes jeux de données que précédemment, mais cette fois-ci avec un réseau de neurones simple, constitué d'une couche linéaire, d'une fonction d'activation \textbf{tanh}, d'une seconde couche linéaire et enfin d'une fonction \textbf{sigmoide}. Les résultats sont visibles dans la figure \ref{fig:simplenn}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/sigmoide_tanh_combined.png}
+    \caption{Loss et prédictions de la régression linéaire}
+	\label{fig:simplenn}
+\end{figure}
+
+On peut voir que la loss converge bien plus rapidement que pour la régression linéaire, et que les résultats sont bien meilleurs. On peut voir que le réseau arrive à bien séparer les deux gaussiennes, mais aussi le XOR. En revanche, il n'arrive pas à séparer l'échiquier, ce problème nécessitant de mettre en place un réseau avec plus de couches.
+
+\section{Mon troisième est un encapsulage}
+
 
 \end{document}
