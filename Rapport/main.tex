@@ -101,7 +101,7 @@ On passe ensuite à la méthode \textbf{backward-update-gradient}, dans laquelle
 
 \subsection{Expérimentation : Régression linéaire}
 
-Avec ces deux éléments, nous pouvons maintenant implémenter une régression linéaire simple. Nous entraînerons un modèle pour prédire une sortie à partir d'une entrée donnée, en minimisant la perte MSE. Les premières expérimentations s'effectuent ainsi sur une simple fonction linéaire de la forme : $y=3x+4$. Comme pour toutes les expérimentations dans ce projet, nous prenons soin de séparer les données d'entraînement et de test, afin de pouvoir évaluer la performance de notre modèle sur des données non vues. Nous utilisons la fonction \textbf{train\_test\_split} de la bibliothèque \textbf{sklearn} pour cela.
+Avec ces deux éléments, nous pouvons maintenant implémenter une régression linéaire simple. Nous entraînerons un modèle pour prédire une sortie à partir d'une entrée donnée, en minimisant la perte MSE. Les premières expérimentations s'effectuent ainsi sur une simple fonction linéaire de la forme : $y=3x+4$. Comme pour toutes les expérimentations dans ce projet, nous prenons soin de séparer les données d'entraînement et de test, afin de pouvoir évaluer la performance de notre modèle sur des données non vues, et donc d'éviter un phénomène de surapprentissage. Nous utilisons la fonction \textbf{train\_test\_split} de la bibliothèque \textbf{sklearn} pour cela.
 
 On dresse ainsi un graphique montrant la valeur de la perte en fonction du nombre d'itérations, ainsi qu'un second graphique montrant la valeur de la sortie prédite par rapport à la sortie réelle. On peut voir que la perte fini bien par converger, et que les valeurs prédites sont très proches des valeurs réelles. \ref{fig:res_reg_lin}.
 
@@ -143,13 +143,69 @@ On teste donc sur les mêmes jeux de données que précédemment, mais cette foi
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{Images/sigmoide_tanh_combined.png}
-    \caption{Loss et prédictions de la régression linéaire}
+    \caption{Loss et frontières avec une couche cachée}
 	\label{fig:simplenn}
 \end{figure}
 
 On peut voir que la loss converge bien plus rapidement que pour la régression linéaire, et que les résultats sont bien meilleurs. On peut voir que le réseau arrive à bien séparer les deux gaussiennes, mais aussi le XOR. En revanche, il n'arrive pas à séparer l'échiquier, ce problème nécessitant de mettre en place un réseau avec plus de couches.
 
 \section{Mon troisième est un encapsulage}
+\subsection{Classe Sequentiel}
+Pour la classe \textbf{Sequentiel}, on suit le même principe que pour la classe \textbf{SimpleNN}, mais cette fois en généralisant afin de pouvoir construire un réseau de neurones plus grand. Cette classe ne possède ainsi qu'un seul paramètre, une liste de modules. Pour la méthode \textbf{forward}, on parcours donc notre liste en faisant appel à cette même méthode pour chacun des modules du réseau. Pour la \textbf{backward}, on parcours la liste dans le sens inverse, et on update les gradients de chacune des couches linéaires, en calculant également les gradients de delta. Pour les deux dernières méthodes, on appelle simplement la méthode de la classe mère pour chacune des couches linéaires.
 
+Pour expérimenter notre réseau, on teste à la fois sur les mêmes données que précédemment, mais aussi sur d'autres répartition de données, afin de mettre en avant l'efficacité de notre implémentation. De plus, on compare l'évolution de la loss en entraînement ainsi que la frontière de décision avec la bibliothèque \textbf{PyTorch}, afin de voir si notre implémentation est correcte. Les résultats sont visibles dans les figures suivantes. On teste ici avec 500 épochs, avec une batch size de 32.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/sequentiel_1.png}
+    \caption{Loss et frontières avec la classe Sequentiel (premières données)}
+	\label{fig:sequentiel1}
+\end{figure}
+On teste ici avec un réseau constitué de la manière suivante : Une couche linéaire (2,5), puis une autre de (5,10), (10,20), puis (20,1), en séparant les couches internes par des fonction de tangente hyperbolique, et en ajoutant une fonction sigmoide à la fin.
+On remarque que la loss converge bien plus rapidement que pour le réseau de neurones simple, et que les résultats sont bien meilleurs. On peut voir que le réseau arrive à bien séparer les deux gaussiennes, mais aussi le XOR. En revanche, il n'arrive pas à séparer l'échiquier, ce problème nécessitant probablement de mettre en place un réseau avec plus de couches.
+La différence d'évolution entre la loss du réseau DIY et la loss de PyTorch est peut-être due à la non utilisation d'optimiseur pour l'instant, point que nous verrons dans la partie suivante.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/sequentiel_2.png}
+    \caption{Loss et frontières avec la classe Sequentiel (secondes données)}
+	\label{fig:sequentiel2}
+\end{figure}
+Avec le même réseau, on arrive ici à résoudre des problèmes de classification plus complexes que nos deux premiers, témoignant de l'efficacité des réseaux de neurones.
+\subsection{Optim et SGD}
+Afin de nous rapprocher le plus possible de la bibliothèque \textbf{PyTorch}, on met en place la classe \textbf{Optim}, conformément aux informations de l'énoncé. On impémente également la fonction SGD, qui correspond à la fonction de train que nous utilisions précedemment en utilisant cette fois-ci notre optimiseur.
+On expérimente ainsi sur les mêmes données que précedemment, dont les résultats sont visibles dans la figure \ref{fig:optim1} et \ref{fig:optim2}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/optim1.png}
+    \caption{Loss et frontières avec optimisation  (premières données)}
+	\label{fig:optim1}
+\end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/optim2.png}
+    \caption{Loss et frontières avec optimisation (secondes données)}
+	\label{fig:optim2}
+\end{figure}
+
+On remarque ainsi que nos notre loss atteint une valeur plus basse, améliorant légèrement les résultats grâce à l'utilisation de l'optimiseur.
+
+\section{Mon quatrième est multi-classe}
+On commence donc par implémenter notre module \textbf{SoftMax}, qui hérite donc de la classe module. On retranscrit ainsi la formule de la fonction softmax, en python, dans la méthode \textbf{forward}. De plus, afin de pouvoir gérer le multi-classe, on ajoute la perte cross-entropique, définie comme un maximum de vraisemblance. On prend ainsi soin d'éviter les valeurs nulles, afin de ne pas avoir de problème avec notre logarithme.
+On expérimente ainsi sur de nouvelles données, celles des chiffres manuscrits, \textbf{USPS}. Les données sont déjà séparées en train et en test, il nous suffit donc d'entraîner notre modèle. Notre réseau de neurones est donc constitué de deux couches cachées, auxquelles on fini par appliquer un softmax. On utilise également la classe CrossEntropyLoss que nous venons de créer. Les résultats sont visibles dans la figure \ref{fig:multi1}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/multi1.png}
+    \caption{10 prédictions de la classification multi-classe (200 epochs)}
+	\label{fig:multi1}
+\end{figure}
+En testant ainsi pour 200 epochs, on obtient une accuracy d'environ 78 \%, ce qui est un résultat plutôt encourageant. Les chiffres sont donc assez bien prédits, mais il reste encore environ 2 chiffres sur 10 qui sont mal classés. On peut améliorer ce résultat en utilisant la LogSoftMax et la LogCrossEntropy. Pour implémenter ces deux fonctions, on implémente simplement la Cross Entropy en intégrant le logsoftmax dans ces fonctions \textbf{forward} et \textbf{backward}. Lorsque l'on construit notre réseau, on ne met donc pas de fonction d'activation à la fin, celle-ci s'appliquant désormais directement lors du calcule de notre loss.
+Les résultats exprérimentaux sont visibles dans la figure \ref{fig:multi2}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/multi2.png}
+    \caption{10 prédictions de la classification multi-classe (200 epochs)}
+    \label{fig:multi2}
+\end{figure}
+Nous avons cette fois-ci une accuracy de 92 \%, ce qui montre l'efficacité de la LogCrossEntropy. Les chiffres sont ainsi en grande partie bien prédits, nous sommes donc désormais capables de résoudre des problèmes de classification multi-classe.
 \end{document}

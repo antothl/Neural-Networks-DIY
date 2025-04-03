@@ -1,11 +1,17 @@
 # Fdb version 4
-["pdflatex"] 1743623255.76417 "c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/Rapport/main.tex" "main.pdf" "main" 1743623260.0991 0
+["pdflatex"] 1743673576.56404 "c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/Rapport/main.tex" "main.pdf" "main" 1743673592.26544 0
   "Images/Logo_of_Sorbonne_University.svg.png" 1743068420 33408 c0675fb3f5ca6b9af6d9b3cf886d8373 ""
-  "Images/classif_reg_lineaire.png" 1743623197 461567 3f2e7a78297a2a0a968e8c7e9b22b274 ""
+  "Images/classif_reg_lineaire.png" 1743672740 461567 3f2e7a78297a2a0a968e8c7e9b22b274 ""
   "Images/module.png" 1743068420 8316 61f23a7f1d7673a34546f190ff7ca54e ""
-  "Images/regression_lineaire.png" 1743623191 359343 0a58c6400d8d143d4f8a63fca13b0056 ""
+  "Images/multi1.png" 1743672980 63295 3da5e4dcf624f02e5645324e63aa455a ""
+  "Images/multi2.png" 1743673439 61428 6bf710efad0ff0f869c7209d4f92e5b2 ""
+  "Images/optim1.png" 1743671448 595765 69893104aa7512de6e61b5a52f6cabb2 ""
+  "Images/optim2.png" 1743671459 571020 bdec1f84e82e7ba12ccc71bd3ac65ae7 ""
+  "Images/regression_lineaire.png" 1743672726 359343 0a58c6400d8d143d4f8a63fca13b0056 ""
+  "Images/sequentiel_1.png" 1743669785 767217 2e15fa6f3f2df164e697e12ab2f476a8 ""
+  "Images/sequentiel_2.png" 1743669849 770263 03b5aea950b0a20122c74cbe7a3a24e4 ""
   "Images/sigmoide_tanh_combined.png" 1743622962 545834 3bee39f307dde918d35371c7f276770f ""
-  "c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/Rapport/main.tex" 1743623251 12237 e3d45723e68b742089e4312b133309f5 ""
+  "c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/Rapport/main.tex" 1743673572 18431 e9431c2a95d417af8a554e3a59d1dc8f ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1743356246 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1743355092 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1743355092 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -69,8 +75,8 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1743358875 5546851 e7871638e4e57d7ca4525db0eb5a9d2a ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1743359103 3346022 9a07a7cfd66f2f25f7a0dab8c8dceda3 ""
   "c:/texlive/2025/texmf.cnf" 1743358852 713 e69b156964470283e0530f5060668171 ""
-  "main.aux" 1743623259 2368 ee7b705678ff0d865b9867bf45045967 "pdflatex"
-  "main.tex" 1743623251 12237 e3d45723e68b742089e4312b133309f5 ""
+  "main.aux" 1743673592 4005 2bc7de9380b18304ef0d51189962d0cb "pdflatex"
+  "main.tex" 1743673572 18431 e9431c2a95d417af8a554e3a59d1dc8f ""
   (generated)
   "main.aux"
   "main.log"

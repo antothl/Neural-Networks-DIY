@@ -26,13 +26,13 @@ class CrossEntropyLoss(Loss):
     
 class LogCrossEntropyLoss(Loss):
     def forward(self, y, yhat):  
-        max_yhat = np.max(yhat, axis=1, keepdims=True)  # Stabilisation numérique
+        max_yhat = np.max(yhat, axis=1, keepdims=True)  
         logsumexp = np.log(np.sum(np.exp(yhat - max_yhat), axis=1, keepdims=True))
-        log_softmax = yhat - max_yhat - logsumexp  # LogSoftmax appliqué ici
-        return -np.sum(y * log_softmax) / y.shape[0]  # Cross-Entropy avec LogSoftmax
+        log_softmax = yhat - max_yhat - logsumexp 
+        return -np.sum(y * log_softmax) / y.shape[0]  
 
     def backward(self, y, yhat):
-        max_yhat = np.max(yhat, axis=1, keepdims=True)  # Stabilisation numérique
+        max_yhat = np.max(yhat, axis=1, keepdims=True) 
         exp_yhat = np.exp(yhat - max_yhat)
-        softmax = exp_yhat / np.sum(exp_yhat, axis=1, keepdims=True)  # Softmax
-        return softmax - y  # Gradient de la cross-entropy
+        softmax = exp_yhat / np.sum(exp_yhat, axis=1, keepdims=True) 
+        return softmax - y  
