@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.30)  3 APR 2025 11:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.30)  3 APR 2025 11:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -320,4 +320,88 @@ Package pdftex.def Info: Images/regression_lineaire.png  used on input line 110.
 (pdftex.def)             Requested size: 377.62642pt x 377.6257pt.
 <Images/classif_reg_lineaire.png, id=29, 867.24pt x 1156.32pt>
 File: Images/classif_reg_lineaire.png Graphic file (type png)
-<use Images/classif_reg_li
+<use Images/classif_reg_lineaire.png>
+Package pdftex.def Info: Images/classif_reg_lineaire.png  used on input line 119.
+(pdftex.def)             Requested size: 377.62642pt x 503.50682pt.
+
+
+[3 <./Images/regression_lineaire.png>]
+
+[4 <./Images/classif_reg_lineaire.png>]
+<Images/sigmoide_tanh_combined.png, id=38, 867.24pt x 1156.32pt>
+File: Images/sigmoide_tanh_combined.png Graphic file (type png)
+<use Images/sigmoide_tanh_combined.png>
+Package pdftex.def Info: Images/sigmoide_tanh_combined.png  used on input line 145.
+(pdftex.def)             Requested size: 377.62642pt x 503.50682pt.
+
+
+[5]
+
+[6 <./Images/sigmoide_tanh_combined.png>]
+<Images/sequentiel_1.png, id=47, 1300.86pt x 1156.32pt>
+File: Images/sequentiel_1.png Graphic file (type png)
+<use Images/sequentiel_1.png>
+Package pdftex.def Info: Images/sequentiel_1.png  used on input line 159.
+(pdftex.def)             Requested size: 377.62642pt x 335.65945pt.
+<Images/sequentiel_2.png, id=48, 1300.86pt x 1156.32pt>
+File: Images/sequentiel_2.png Graphic file (type png)
+<use Images/sequentiel_2.png>
+Package pdftex.def Info: Images/sequentiel_2.png  used on input line 168.
+(pdftex.def)             Requested size: 377.62642pt x 335.65945pt.
+
+
+[7 <./Images/sequentiel_1.png>]
+<Images/optim1.png, id=53, 867.24pt x 1156.32pt>
+File: Images/optim1.png Graphic file (type png)
+<use Images/optim1.png>
+Package pdftex.def Info: Images/optim1.png  used on input line 178.
+(pdftex.def)             Requested size: 377.62642pt x 503.50682pt.
+
+
+[8 <./Images/sequentiel_2.png>]
+<Images/optim2.png, id=58, 867.24pt x 1156.32pt>
+File: Images/optim2.png Graphic file (type png)
+<use Images/optim2.png>
+Package pdftex.def Info: Images/optim2.png  used on input line 185.
+(pdftex.def)             Requested size: 377.62642pt x 503.50682pt.
+
+
+[9 <./Images/optim1.png>]
+
+[10 <./Images/optim2.png>]
+<Images/multi1.png, id=67, 722.7pt x 361.35pt>
+File: Images/multi1.png Graphic file (type png)
+<use Images/multi1.png>
+Package pdftex.def Info: Images/multi1.png  used on input line 198.
+(pdftex.def)             Requested size: 377.62642pt x 188.81285pt.
+<Images/multi2.png, id=68, 722.7pt x 361.35pt>
+File: Images/multi2.png Graphic file (type png)
+<use Images/multi2.png>
+Package pdftex.def Info: Images/multi2.png  used on input line 206.
+(pdftex.def)             Requested size: 377.62642pt x 188.81285pt.
+
+
+[11 <./Images/multi1.png> <./Images/multi2.png>]
+
+[12] (./main.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 5680 strings out of 473189
+ 91158 string characters out of 5719958
+ 490130 words of memory out of 5000000
+ 28892 multiletter control sequences out of 15000+600000
+ 562822 words of font info for 52 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 67i,7n,77p,1297b,365s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (13 pages, 4053577 bytes).
+PDF statistics:
+ 125 PDF objects out of 1000 (max. 8388607)
+ 65 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+
