@@ -208,4 +208,33 @@ Les résultats exprérimentaux sont visibles dans la figure \ref{fig:multi2}.
     \label{fig:multi2}
 \end{figure}
 Nous avons cette fois-ci une accuracy de 92 \%, ce qui montre l'efficacité de la LogCrossEntropy. Les chiffres sont ainsi en grande partie bien prédits, nous sommes donc désormais capables de résoudre des problèmes de classification multi-classe.
+\section{Mon cinquième se compresse (et s'expérimente beaucoup)}
+Nous allons donc mettre en place notre auto-encodeur. Pour cela, on modifie légèrement notre classe \textbf{Sequentiel}, afin de pouvoir construire un objet de cette classe à partir de deux autres objets de celle-ci.
+Ceci va nous permettre de créer un réseau de type encodeur, puis un autre de type décodeur. Il suffit alors de construire l'objet \textbf{Sequentiel} en mettant les deux éléments dans une liste.
+Notre réseau est alors construit de la manière suivante : 2 couches par partie de l'encodeur, la sortie de la première et l'entrée de la seconde étant en dimension 10, une pour chaque chiffre.
+
+On crée ensuite notre \textbf{BCELoss}, en appliquant simplement la formule de celle-ci. Cela nous permettra d'obtenir de meilleures performances qu'avec la MSE.
+On entraîne ensuite notre autoencodeur sur les données \textbf{USPS}, en utilisant la fonction d'optimisation SGD.
+Les résultats sont visibles dans la figure \ref{fig:autoecodeur}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/autoecodeur.png}
+    \caption{10 prédictions de l'autoencodeur (1000 epochs)}
+    \label{fig:autoecodeur}
+\end{figure}
+Parmi les 10 chiffres tirés au hasard, on remarque que certains sont très bien recréés, tandis que d'autres, comme le 5 et le 6, sont confondus avec d'autres chiffres.  Pour vérifier ce phénomène, on applique donc l'algorithme \textbf{TSNE}. Le résultat est visible dans la figure \ref{fig:tsne}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/t-sne.png}
+    \caption{Résultat de l'algorithme TSNE}
+    \label{fig:tsne}
+\end{figure}
+On remarque ainsi que les clusters ne sont pas les mêmes, et que les chiffres dont les formes sont proches ont tendance à se mélanger dans l'espace latent, ce qui explique nos problèmes de reproduction totalement fidèle des chiffres.
+On effectue ensuite une grid-search afin d'optimiser les hyper-paramètres. Le résultat en utilisant les meilleurs sont visibles dans la figure \ref{fig:autoecodeur_grid}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/autoecodeur_grid.png}
+    \caption{10 prédictions de l'autoencodeur (1000 epochs)}
+    \label{fig:autoecodeur_grid}
+\end{figure}
 \end{document}

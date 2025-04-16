@@ -116,7 +116,12 @@ class SimpleNN(Module):
 class Sequentiel(Module):
     def __init__(self, *modules):
         super().__init__()
-        self.modules = list(modules)
+        self.modules = []
+        for m in modules:
+            if isinstance(m, Sequentiel):
+                self.modules.extend(m.modules)
+            else:
+                self.modules.append(m)
     
     def forward(self, X):
         self.inputs = []  

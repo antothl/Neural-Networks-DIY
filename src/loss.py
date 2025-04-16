@@ -36,3 +36,12 @@ class LogCrossEntropyLoss(Loss):
         exp_yhat = np.exp(yhat - max_yhat)
         softmax = exp_yhat / np.sum(exp_yhat, axis=1, keepdims=True) 
         return softmax - y  
+
+class BinaryCrossEntropyLoss(Loss):
+    def forward(self, y, yhat):
+        yhat = np.clip(yhat, 1e-12, 1 - 1e-12)
+        return -np.mean(y * np.log(yhat) + (1 - y) * np.log(1 - yhat))
+
+    def backward(self, y, yhat):
+        yhat = np.clip(yhat, 1e-12, 1 - 1e-12)
+        return (yhat - y) / (yhat * (1 - yhat)) / y.shape[0]
