@@ -167,11 +167,11 @@ INPUT ./Images/t-sne.png
 INPUT ./Images/t-sne.png
 INPUT ./Images/t-sne.png
 INPUT ./Images/t-sne.png
-INPUT ./Images/autoecodeur_grid.png
-INPUT ./Images/autoecodeur_grid.png
-INPUT ./Images/autoecodeur_grid.png
-INPUT ./Images/autoecodeur_grid.png
-INPUT ./Images/autoecodeur_grid.png
+INPUT ./Images/k-means.png
+INPUT ./Images/k-means.png
+INPUT ./Images/k-means.png
+INPUT ./Images/k-means.png
+INPUT ./Images/k-means.png
 INPUT main.aux
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
