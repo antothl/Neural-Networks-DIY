@@ -15,7 +15,8 @@
 \usepackage{float}
 
 \title{Réseau de neurones DIY}
-\author{Antoine Théologien - 21400184}
+\author{Antoine Théologien - 21400184 \\
+Célian Vasson - 21400967}
 \newcommand{\program}{Master Informatique}
 \newcommand{\parcours}{DAC}
 \newcommand{\course}{Machine Learning}
@@ -125,15 +126,25 @@ On peut donc voir que la régression linéaire fonctionne bien sur la séparatio
 
 \section{Mon second est ... non linéaire !}
 \subsection{Implémentations}
-On commence donc par implémenter la fonction d'activation \textbf{TanH}, qui hérite de la classe module. Il ne suffit que d'implémenter la méthode \textbf{forward}, qui consiste simplement en un appel de la fonction $tanh$ de la bibliothèque \textbf{numpy}. On implémente ensuite la méthode \textbf{backward\_delta}, qui va nous permettre de calculer le gradient de notre fonction d'activation. Pour cela, on utilise la dérivée de notre tangente hyperbolique, ce qui nous donne, en python : 
+Nous commençons par implémenter la fonction d’activation \textbf{TanH}, qui hérite de la classe \texttt{Module}. Il suffit pour cela d’implémenter la méthode \texttt{forward}, qui applique simplement la fonction $\tanh$ de la bibliothèque \texttt{numpy}. La méthode \texttt{backward\_delta}, quant à elle, permet de calculer le gradient de l’activation en utilisant la dérivée de la tangente hyperbolique :
+
 \[
-\text{delta} = delta * (1 - np.tanh(X) ^ 2)
+\delta = \delta \times \left(1 - \tanh^2(X)\right)
 \]
 
-Pour la fonction sigmoide, on procède de la même manière, à l'exception qu'il n'y a pas de fonction sigmoide déjà implémentée dans numpy, on doit donc la définir par nous-même. On implémente ensuite la dérivée de celle-ci dans la méthode \textbf{backward\_delta}, qui s'exprime ainsi :
+Pour la fonction sigmoïde, l’implémentation suit le même principe, seulement il n’existe pas de fonction sigmoïde prédéfinie dans \texttt{numpy}. Il faut donc la définir explicitement :
+
 \[
-\text{delta} = delta * sig * (1 - sig) \text{, avec : } sig = 1 / (1 + np.exp(-X))
+\sigma(X) = \frac{1}{1 + e^{-X}}
 \]
+
+La dérivée est ensuite utilisée dans la méthode \texttt{backward\_delta} :
+
+\[
+\delta = \delta \times \sigma(X) \times \left(1 - \sigma(X)\right)
+\]
+
+
 
 Enfin, afin de tester notre premier réseau de neurones, nous avons mis en place la classe \textbf{SimpleNN}, qui va nous permettre de créer un réseau constitué d'une couche linéaire, puis d'une fonction d'activation \textbf{tanh}, puis d'une seconde couche linéaire et enfin d'une fonction \textbf{sigmoide}. On implémente la méthode \textbf{forward}, qui va nous permettre de faire passer nos données dans le réseau, en appelant les différentes méthodes \textbf{forward} de chaque module, en prenant en paramètre le retour de la fonction forward de la couche précédente. Pour la méthode \textbf{backward}, on commence par calculer le gradient de la loss, puis on va calculer tous les deltas dont nous avons besoin par rétropropagation, en appelant la méthode \textbf{backward\_delta} de chaque module, en prenant en paramètre le retour de la fonction backward de la couche suivante. Enfin, on appelle la méthode \textbf{backward\_gradient\_update} sur chacune des couches linéaires. Pour les deux autres méthodes que sont \textbf{zero\_grad} et \textbf{update\_parameters}, on appelle simplement la méthode de la classe mère pour chacune des couches linéaires.
 \subsection{Expérimentation : Réseau de neurones simple}
@@ -208,7 +219,10 @@ Les résultats exprérimentaux sont visibles dans la figure \ref{fig:multi2}.
     \label{fig:multi2}
 \end{figure}
 Nous avons cette fois-ci une accuracy de 92 \%, ce qui montre l'efficacité de la LogCrossEntropy. Les chiffres sont ainsi en grande partie bien prédits, nous sommes donc désormais capables de résoudre des problèmes de classification multi-classe.
+
+
 \section{Mon cinquième se compresse (et s'expérimente beaucoup)}
+\subsection{Encodeur d'image de chiffre}
 Nous allons donc mettre en place notre auto-encodeur. Pour cela, on modifie légèrement notre classe \textbf{Sequentiel}, afin de pouvoir construire un objet de cette classe à partir de deux autres objets de celle-ci.
 Ceci va nous permettre de créer un réseau de type encodeur, puis un autre de type décodeur. Il suffit alors de construire l'objet \textbf{Sequentiel} en mettant les deux éléments dans une liste.
 Notre réseau est alors construit de la manière suivante : 2 couches par partie de l'encodeur, la sortie de la première et l'entrée de la seconde étant en dimension 10, une pour chaque chiffre.
@@ -241,5 +255,279 @@ On remarque ainsi que les clusters ne sont pas les mêmes, et que les chiffres d
 Nous avons également mis en place une grid-search afin d'optimiser les valeurs des hyperparamètres pour le learning rate et la batch-size. Il s'est avéré que les meilleures valeurs étaient celles utilisées dans les expérimentations précédentes, du moins dans notre structure actuelle.
 
 Nous avons ensuite testé les mêmes choses en mettant cette fois en place des réseaux différents, tant dans le nombre de couche et de neurones que dans les fonction d'activation. Les résultats sont visibles dans la suite du rapport.
+
+\subsection{Encodeur syntaxique de mot}
+
+Nous avons choisi d’expérimenter l'architecture \textit{encodeur-décodeur} sur un problème linguistique, afin d’obtenir une représentation latente de mots français fondée uniquement sur leur forme orthographique. 
+Notre hypothèse principale est la suivante : peut-on apprendre une représentation interne pertinente d’un mot à partir de sa seule structure (lettres et positions), sans recourir à une information sémantique ou contextuelle~?
+
+3 Problématiques se sont posées :
+\begin{itemize}
+    \item Les vecteurs latents capturent-ils des propriétés linguistiques des mots, telles que le genre ou la fonction grammaticale~?
+    \item Le décodeur est-il capable de reconstruire un mot correct à partir d’un mot bruité~?
+    \item Peut-on utiliser cet espace latent comme prétraitement pour des tâches supervisées~?
+\end{itemize}
+
+\subsubsection{Donnée d'entraînement}
+
+Nous avons utilisé le jeu de données Lexique3, qui regroupe environ 140,000 mots de la langue française accompagnés de leurs propriétés grammaticales. Ces informations sont particulièrement intéressantes pour évaluer la pertinence de l’espace latent appris par notre modèle.
+\\ \\
+Comme nous utilisons un réseau de type MLP, qui n’est pas conçu pour traiter des séquences de longueur variable, nous avons dû imposer certaines contraintes sur les données d’entraînement. En particulier, nous avons choisi de ne conserver que les mots de longueur fixe égale à cinq caractères, ce qui correspond approximativement à la longueur moyenne des mots les plus fréquemment utilisés en français.
+\\ \\
+Nous avons construit un alphabet composé de 39 caractères présents dans le corpus de mots. Chaque lettre est représentée par un vecteur one-hot, où chaque dimension correspond à un caractère de l’alphabet. À partir de cela, on peut représenter un mot comme une matrice composée de cinq vecteurs one-hot. Ce sont ces objets que notre modèle devra encoder et décoder.
+
+\subsubsection{Protocole d'évaluation}
+
+Afin d’évaluer la pertinence de la représentation latente apprise par notre autoencodeur, nous avons analysé plusieurs métriques et mené différentes expérimentations.
+\\ \\
+Nous nous sommes d’abord appuyés sur la valeur de la fonction de coût obtenue sur les données de test, en utilisant la \textit{Binary Cross Entropy}, définie précédemment, comme mesure de reconstruction.
+\\ \\
+Nous avons ensuite évalué la qualité de l’espace latent en l’utilisant comme entrée pour des classifieurs simples, en particulier des modèles de régression logistique. Ces classifieurs ont été entraînés sur différentes tâches de classification linguistique, telles que le genre grammatical ou le nombre (singulier/pluriel) des mots.
+\\ \\
+Pour mesurer l’apport de la représentation latente, nous avons comparé les performances des classifieurs lorsqu’ils sont entraînés à partir des représentations \textit{one-hot} versus celles issues de l’espace latent. Cette comparaison permet de déterminer si l’espace latent facilite ou non les tâches de classification, et donc s’il encode des propriétés linguistiques utiles.
+
+\subsubsection{Expérimentation sans pré-traitement}
+
+Nous avons commencé par définir un premier modèle d’autoencodeur appliqué à des mots de longueur fixe (5 lettres). La première observation notable fut la lenteur de l’apprentissage~: le modèle convergeait difficilement et présentait une forte tendance au sur-apprentissage. Le learning rate nécessaire est très élevé, cela s’explique sûrement par une mauvaise échelle initiale des poids, qui rend les gradients trop faibles pour produire des mises à jour significatives.
+\\
+Après avoir expérimenté différentes initialisations de poids, nous avons conclu que c’était la source du problème. L’utilisation de l’initialisation Xavier a permis une convergence bien plus rapide et de meilleures performances en test.
+\\ \\
+On utilise ici un réseau encoder \texttt{Linear(39*5, 50)} $\rightarrow$ \texttt{Linear(50, 10)} 
+\\
+et decoder : \texttt{Linear(10, 50)} $\rightarrow$ \texttt{Linear(50, 39*5)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/encodeur-decodeur.pdf}
+    \caption{Visualisation de l'architecture}
+    \label{fig:mirror_example}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/loss_no_init.png}
+    \caption{Évolution de la loss pendant l’entraînement avec initialisation aléatoire standard}
+    \label{fig:loss_no_init}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/loss_xavier_init.png}
+    \caption{Évolution de la loss pendant l’entraînement avec initialisation Xavier}
+    \label{fig:loss_xavier_init}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lc}
+\hline
+\textbf{Modèle sur 1000 epoch} & \textbf{Loss en test} \\
+\hline
+Sans init (\texttt{np.random.randn}) & 0.0720 \\
+Avec init Xavier & 0.0242 \\
+\hline
+\end{tabular}
+\caption{Comparaison de la perte en test après 1000 époques selon l'initialisation des poids}
+\end{table}
+
+Malgré ces améliorations, le modèle reste très sensible au sur-apprentissage. Une réduction de la taille du réseau, en particulier de la dimension de l’espace latent, permet de limiter partiellement ce phénomène. Toutefois, l’équilibre entre sous-apprentissage et sur-apprentissage reste compliqué à atteindre.
+
+\subsubsection{Ajout de bruit}
+
+Afin de rendre le modèle plus robuste, nous avons introduit du bruit dans les données d’entraînement. Ce bruit est simulé par le remplacement aléatoire de certaines lettres d’un mot par d’autres lettres de l’alphabet choisies uniformément au hasard. Cette approche permet au modèle d’apprendre à reconstruire des mots partiellement corrompus, ce qui simule des erreurs telles que des fautes de frappe. De plus, cette technique agit comme une forme de régularisation, en réduisant le risque de surapprentissage sur les données d'entraînement. Pour introduire du bruit lors de l'entraînement, nous altérons, à chaque batch, une proportion globale des lettres définie par le paramètre \texttt{noise\_level}. Ainsi, certains mots peuvent ne subir aucune modification, tandis que d’autres peuvent être altérés à plusieurs reprises.
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+\hline
+\textbf{Train set} & \textbf{Loss train} & \textbf{Loss test (\texttt{noise\_level} = 0)} & \textbf{Loss test (0.1)} & \textbf{Loss test (0.2)} \\
+\hline
+Sans bruit & \textbf{0.0073} & 0.0242 & 0.0747 & 0.1061 \\
+$\texttt{noise\_level} = 0.1$ & 0.0234 & \textbf{0.0131} & 0.0305 & 0.0451  \\
+$\texttt{noise\_level} = 0.2$ & 0.0352 & 0.0148 & \textbf{0.0298} & \textbf{0.0411} \\
+\hline
+\end{tabular}
+\caption{Comparaison de la perte en test et en train selon le niveau de bruit des données d'entraînement}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{Train set} & \textbf{PR Acc. train} & \textbf{PR Acc. test}  \\
+\hline
+Sans bruit & 54.06\% & 40.32\% \\
+$\texttt{noise\_level} = 0.1$ & \textbf{90.4\%} & \textbf{72.83\%} \\
+$\texttt{noise\_level} = 0.2$ & 87.69\% & 71.42\%  \\
+\hline
+\end{tabular}
+\caption{Comparaison de la proportion de mot parfaitement reconstruit (PR) selon le set d'entraînement}
+\end{table}
+
+L’ajout de bruit permet au modèle de mieux généraliser, comme le montre les loss observées sur le train et test set. Sans bruit, les performances se dégradent sur les données de test, ce qui indique que le modèle a un peu overfitté.
+\\ \\
+Lorsqu’on introduit un peu bruit (\texttt{noise\_level}~$=0.1$), les performances de reconstruction s’améliorent nettement en test. Le modèle apprend à corriger des entrées bruitées, ce qui le pousse à produire des reconstructions plus stables et plus franches, même en présence de perturbations.
+\\
+On le voit aussi dans la proportion de mots parfaitement reconstruits. Le modèle sans bruit n’atteint que \textbf{54.06\,\%} de reconstruction exacte en entraînement, malgré une loss très basse. Nous avons émis l'hypothèse que la fonction de coût (Binary Cross Entropy) récompense des sorties proches de la vérité, mais pas forcément parfaitement binaires. En conséquence, le modèle sans bruit produit des sorties floues, qui minimisent bien la loss mais échouent plus souvent après seuillage à reconstruire le mot exact. Le bruit pousse le modèle à renvoyer des one-hot beaucoup plus tranché augmentant grandement la qualité de la reconstruction.
+\\ \\
+Enfin, assez logiquement le modèle entraîné sur des données plus bruitées (\texttt{noise\_level}~$=0.2$) arrive mieux à reconstruire en test sur des données bruitées.
+
+
+
+\subsubsection{Masquage}
+
+Toujours dans l’objectif d’améliorer la robustesse du modèle, nous avons également introduit un mécanisme de masquage. Celui-ci consiste à remplacer certaines lettres par un symbole spécial indiquant qu’une information est absente, dans notre cas nous avons décidé de les représenter avec un vecteur de lettre one-hot nul. Le modèle est alors entraîné à inférer les lettres manquantes en s’appuyant uniquement sur le contexte fourni par les autres lettres du mot. Cette approche favorise l’apprentissage des régularités internes et de la structure des mots.
+\\ \\
+En ce qui concerne la prédiction de caractères manquants, nous avons adopté deux approches pour évaluer la qualité de la reconstruction. Dans un premier temps, nous avons simplement observé le mot reconstruit par le modèle. Toutefois, lorsqu’un caractère est masqué dans un mot, plusieurs complétions valides peuvent exister. Par exemple, le mot partiellement masqué \texttt{b\_lle} peut correspondre à plusieurs solutions correctes telles que \textit{bulle}, \textit{balle}, \textit{belle} ou encore \textit{bille}. Pour pallier cette ambiguïté, nous avons adopté une approche basée sur les représentations latentes. Pour un mot comportant un caractère masqué, nous avons comparé sa représentation à celles des mots du vocabulaire complet encodé. Les mots dont les embeddings sont les plus proches (selon la distance euclidienne) sont alors considérés comme les reconstructions les plus plausibles.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|cc}
+\hline
+& \textbf{Entraînement 1} & \textbf{Entraînement 2}\\
+\hline
+\textbf{Mot encodé} & \multicolumn{2}{c}{\textbf{Mot reconstruit}}  \\
+\hline
+b\_lle & balle & bulle \\
+b\_ule & boule & boule \\
+\_\_\_\_\_ & barit & honie \\
+\_\_r\_\_ & marie & héroe \\
+\_\_q\_\_ & naque & hoque \\
+q\_\_\_\_ & quici & quebe \\
+\hline
+\end{tabular}
+\caption{Exemples de mots masqués reconstruit}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|cccc}
+\hline
+ & \multicolumn{2}{c}{\textbf{Entraînement 1}} & \multicolumn{2}{c}{\textbf{Entraînement 2}}\\
+\hline
+\textbf{Input} & \textbf{b\_lle} & \textbf{q\_\_\_\_} & \textbf{b\_lle} & \textbf{q\_\_\_\_}  \\
+\hline
+$1^{er}$ & balle & quant & balle & suffi \\
+$2^{eme}$ & belle & quand & bulle & quand \\
+$3^{eme}$ & bille & quête & bille & miaou \\
+$4^{eme}$ & aille & queue & batte & quant \\
+$5^{eme}$ & laque & ouate & balto & bémol \\
+\hline
+\end{tabular}
+\caption{Classement des mots encodés du vocabulaire les plus proches (Distance euclidienne)}
+\end{table}
+
+On remarque que le modèle parvient à apprendre une structure assez convaincante. Par exemple, lorsqu’on lui masque toutes les lettres d’un mot, il est capable de générer des mots n’existant certes pas dans la langue française, mais néanmoins plausibles. On observe notamment un bon agencement des voyelles et des consonnes, ainsi que la présence de formes régulières en français, comme un t muet en fin de mot dans "barit" ou un ie final dans "honie". On constate le même phénomène avec le q qui est toujours suivi d'un u.
+\\ \\
+Pour le processus de plus proche voisin dans l'espace latent, le modèle parvient en général à obtenir des résultats pertinent. Néanmoins il reste des résultats peu cohérent, avec des mots proches dans l'espace latent assez loin de la structure du mot d'entrée.
+\\ \\
+Enfin ces expérimentations montrent la sensibilité du modèle à l'aléatoire de l'entraînement. En comparant les résultats de deux modèles identiques entraînés sur le même jeu de donnée on arrive à des résultat assez différent. Cela est probablement dû à l'entraînement par batch aléatoire et surtout par l'ajout de masque aléatoire dans l'entraînement.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{Train set} & \textbf{PR Acc. train} & \textbf{PR Acc. test}  \\
+\hline
+$\texttt{noise\_level} = 0.1$ & \textbf{90.4\%} & \textbf{72.83\%} \\
+$\texttt{mask\_level} = 0.1$& 83.19\% & 61.33\%  \\
+$\texttt{mask\_level} = 0.2$& 83.15\% & 68.16\%  \\
+\hline
+\end{tabular}
+\caption{Comparaison de la proportion de mot parfaitement reconstruit (PR) selon le set d'entraînement}
+\end{table}
+
+L'ajout de bruit reste le processus qui aide le mieux le modèle à généraliser une bonne reconstruction.
+
+
+\subsubsection{Padding}
+
+Grâce au processus de masquage, nous avons pu expérimenter l’encodage de mots de longueur variable. Nous fixons une longueur maximale (choisie ici comme 10), et lorsqu’un mot est plus court, nous ajoutons autant de caractères de masquage que nécessaire pour atteindre cette longueur. Cela permet de conserver une représentation de taille fixe, tout en traitant des mots de tailles différentes. L’objectif de cette expérience est de déterminer si le modèle est capable de généraliser à des mots de longueur variable, et plus précisément, s’il parvient à apprendre à masquer lui-même la fin du mot lorsque celle-ci ne contient plus d’information pertinente. On utilise encore le processus de bruitage des données, cette fois seulement sur les lettres pas masquées.
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+\hline
+\textbf{Mot encodé} & \textbf{Mot reconstruit}\\
+\hline
+pilule & pilulerxàc \\
+marque & marquertat \\
+apprendre & apprentrez \\
+ordinateur & artinatern \\
+chat & chatreszzi \\
+\hline
+\end{tabular}
+\caption{Exemples de mots paddé reconstruit}
+\end{table}
+
+Le modèle n'arrive pas à masquer la fin du mot, il génère systématiquement une suite de lettre de taille 10. Les mots courts, de taille inférieur à 6 sont plutôt bien reconstruit, outre les lettres qui dépasse. Cependant les mots plus longs ont plus de difficulté à être reconstruit complètement. En conclusion ce modèle est inutilisable pour cette tâche. 
+\\ \\
+Étant donné que le modèle ne semble pas capable de masquer correctement la fin d’un mot, nous avons envisagé plusieurs pistes pour contourner ce problème. L’une des solutions consiste à faire prédire par le modèle, en plus de la reconstruction du mot, sa longueur sous forme d’un vecteur one-hot de taille 10. En plus de cela pour le rendre plus robuste, on propagerait la loss uniquement sur les sorties correspondant aux positions effectivement présentes dans le mot, en ignorant les caractères de remplissage.  
+Par manque de temps, nous n’avons pas pu expérimenter ces alternatives.
+
+\subsubsection{Résultats}
+
+À l’image des visualisations classiques sur des images de chiffres, nous avons projeté les représentations latentes des mots dans un espace 2D à via la méthode t-SNE. L’objectif était d’observer si des clusters distincts se formaient en fonction de certaines propriétés linguistiques, notamment le genre grammatical et le nombre.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/tsne_mf.png}
+        \caption*{(a) Masculin / Féminin}
+        \label{fig:mf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/tsne_m.png}
+        \caption*{(b) Masculin}
+        \label{fig:m}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/tsne_f.png}
+        \caption*{(c) Féminin}
+        \label{fig:f}
+    \end{minipage}
+    \caption{Visualisation t-SNE des représentations latentes selon le genre grammatical.}
+    \label{fig:tsne_genre}
+\end{figure}
+
+On peut observer pour le genre qu'à défaut d'avoir des clusters bien distinct, on a tout de même une séparation sur la distribution des points selon leur genre. Avec ce run, les points masculins sont plus dense sur la composante 1 positif, pour les féminins ils sont plus répandus sur la composante 1 dans les négatifs. Cela supposerais qu'il y aurait donc bien une séparation entre féminin et masculin à partir de la structure des mots. Il est possible que cela représente sûrement les cas très disciminant (-e présent à la fin des mots féminins...).
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\hline
+ & \textbf{Acc. Test Genre} & \textbf{Acc. Test Nombre} \\
+\hline
+One-hot & 88.64\% & 100\% \\
+Sans bruit & 76.77\% & 96.64\% \\
+$\texttt{noise\_level} = 0.1$ & 81.21\% & 98.6\% \\
+\hline
+\end{tabular}
+\caption{Comparaison des performances en test de régressions logistique selon le format des données}
+\end{table}
+
+La représentation one-hot permet d’obtenir de meilleurs résultats que l’espace latent pour les tâches de classification. Cela peut s’expliquer par le fait que l’autoencodeur tend à produire des représentations plus compactes mais aussi plus floues. Pour des tâches relativement simples comme la prédiction du genre ou du nombre d’un mot, la précision brute de la représentation one-hot reste plus efficace.
+\\ \\
+Nos expérimentations ont montré qu’une perte de reconstruction faible n’impliquait pas nécessairement de meilleures performances en classification. Par ailleurs, de nombreux mots peuvent être considérés comme triviaux pour la prédiction du genre grammatical (par exemple, un mot masculin ne se terminant pas par un -e, ou un mot féminin se terminant par un -e). Sur les cas non-triviaux (par exemple: guide), tous les modèles obtiennent de moins bons résultats. Toutefois, certains entraînements d’autoencodeurs ont parfois réussi à surpasser la représentation one-hot, montrant que l’espace latent reste capable de capturer des propriété pertinentes selon les conditions d’apprentissage.
+\\ \\
+En conclusion, l’autoencodeur appliqué à des mots sur la base de leur structure syntaxique s’est révélé capable de produire une représentation latente partiellement pertinente. Les différentes expériences menées, notamment le masquage de caractères, ont permis de mettre en évidence sa capacité à mémoriser des formes syntaxiques régulières de la langue Française.
+\\
+Pour le débruitage l'architecture est assez performantes, elle peut être utilisé comme une solution légère pour débruiter un mot sans base de donnée. Cependant des algorithmes déterministes utilisant la base de données complète reste quand même plus performants.
+\\ \\
+L’approche par MLP a considérablement limité les performances de l’encodage, notamment en raison de son incapacité à exploiter la structure séquentielle des mots. En traitant chaque mot comme un simple vecteur plat, le modèle ne peut pas capturer efficacement les dépendances entre lettres ni la position relative des caractères. Une architecture récurrente ou à base d’attention, comme les RNN ou les Transformers, reste plus adaptée pour encoder des informations structurelles plus fines et améliorer la qualité des représentations latentes.
+\\ \\
+
+\subsubsection{Expérimentations supplémentaires}
+On a implémenté deux modules supplémentaire qu'on a pas inclus dans ce rapport, on a malheureusement pas eu assez de temps pour obtenir des résultats concluants. Leur objectif commun était d'apprendre une représentation latente des lettres avant d'utiliser leur représentation dans un encodeur de mot. 
+\\ \\
+Le premier modèle encode chaque lettre à l’aide d’un encodeur distinct pour chaque position dans le mot, permettant ainsi d’apprendre une représentation contextuelle spécifique à chaque emplacement. Le second modèle, plus contraint, apprend un unique encodeur partagé pour toutes les lettres, quelle que soit leur position. On a obtenu des convergences vers des loss trop élevé les rendant peu utilisable. Il s'agit certainement d'un problème d'implémentation.
+
 
 \end{document}

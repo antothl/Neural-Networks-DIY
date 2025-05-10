@@ -2,6 +2,7 @@ import numpy as np
 #from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 from matplotlib import cm
+from module import Optim
 
 
 def plot_data(data,labels=None):
@@ -93,3 +94,34 @@ def gen_arti2(data_type=0, epsilon=0.1):
     else:
         X, y = make_classification(n_samples=1000, n_features=2, n_redundant=0, n_informative=2, n_clusters_per_class=1, class_sep=1.5, random_state=42)
     return X, y.reshape(-1, 1)
+
+def xavier_init(input_dim, output_dim):
+    limit = np.sqrt(6 / (input_dim + output_dim))
+    return np.random.uniform(-limit, limit, (input_dim + 1, output_dim)) 
+
+def he_init(input_dim, output_dim):
+    std = np.sqrt(2 / input_dim)
+    return np.random.randn(input_dim + 1, output_dim) * std
+
+def SGD(network, datax, datay, loss, batch_size=10, lr=0.01, epochs=500):
+
+    optimizer = Optim(network, loss, eps=lr)
+    losses = []
+
+    for epoch in range(epochs):
+        indices = np.random.permutation(len(datax))  
+        batch_losses = []
+
+        for i in range(0, len(datax), batch_size):
+            batch_x = datax[indices[i:i + batch_size]]
+            batch_y = datay[indices[i:i + batch_size]]
+
+            batch_loss = optimizer.step(batch_x, batch_y)  
+            batch_losses.append(batch_loss)
+
+        losses.append(np.mean(batch_losses))  
+
+        if epoch % 50 == 0:
+            print(f"Epoch {epoch}, Loss : {losses[-1]:.4f}")
+
+    return losses, network
