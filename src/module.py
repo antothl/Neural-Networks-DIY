@@ -47,8 +47,6 @@ class Linear(Module):
 
         return delta @ self._parameters[:-1].T  
     
-
-
 class TanH(Module):
     def forward(self, X):
         self.X = X
@@ -212,6 +210,18 @@ class Optim:
         self.net.backward_update_gradient(batch_x, delta)
         self.net.update_parameters(self.eps)
         return loss.mean() 
+
+class Optim_old:
+    def __init__(self, net, loss, eps):
+        self.net = net
+        self.loss = loss
+        self.eps = eps
+
+    def step(self, batch_x, batch_y):
+        self.net.zero_grad()
+        self.net.backward(batch_x, batch_y, self.loss)
+        self.net.update_parameters(self.eps)
+
 
 class Softmax(Module):
     def forward(self, x):
