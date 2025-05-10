@@ -320,4 +320,245 @@ Package pdftex.def Info: Images/regression_lineaire.png  used on input line 111.
 (pdftex.def)             Requested size: 377.62642pt x 377.6257pt.
 <Images/classif_reg_lineaire.png, id=29, 867.24pt x 1156.32pt>
 File: Images/classif_reg_lineaire.png Graphic file (type png)
-<use Images/classif_reg_l
+<use Images/classif_reg_lineaire.png>
+Package pdftex.def Info: Images/classif_reg_lineaire.png  used on input line 120.
+(pdftex.def)             Requested size: 377.62642pt x 503.50682pt.
+
+
+[3 <./Images/regression_lineaire.png>]
+
+[4 <./Images/classif_reg_lineaire.png>]
+<Images/sigmoide_tanh_combined.png, id=38, 867.24pt x 1156.32pt>
+File: Images/sigmoide_tanh_combined.png Graphic file (type png)
+<use Images/sigmoide_tanh_combined.png>
+Package pdftex.def Info: Images/sigmoide_tanh_combined.png  used on input line 156.
+(pdftex.def)             Requested size: 377.62642pt x 503.50682pt.
+
+
+[5]
+
+[6 <./Images/sigmoide_tanh_combined.png>]
+<Images/sequentiel_1.png, id=49, 1300.86pt x 1156.32pt>
+File: Images/sequentiel_1.png Graphic file (type png)
+<use Images/sequentiel_1.png>
+Package pdftex.def Info: Images/sequentiel_1.png  used on input line 170.
+(pdftex.def)             Requested size: 377.62642pt x 335.65945pt.
+<Images/sequentiel_2.png, id=50, 1300.86pt x 1156.32pt>
+File: Images/sequentiel_2.png Graphic file (type png)
+<use Images/sequentiel_2.png>
+Package pdftex.def Info: Images/sequentiel_2.png  used on input line 179.
+(pdftex.def)             Requested size: 377.62642pt x 335.65945pt.
+
+
+[7 <./Images/sequentiel_1.png>]
+<Images/optim1.png, id=55, 867.24pt x 1156.32pt>
+File: Images/optim1.png Graphic file (type png)
+<use Images/optim1.png>
+Package pdftex.def Info: Images/optim1.png  used on input line 189.
+(pdftex.def)             Requested size: 377.62642pt x 503.50682pt.
+
+
+[8 <./Images/sequentiel_2.png>]
+<Images/optim2.png, id=60, 867.24pt x 1156.32pt>
+File: Images/optim2.png Graphic file (type png)
+<use Images/optim2.png>
+Package pdftex.def Info: Images/optim2.png  used on input line 196.
+(pdftex.def)             Requested size: 377.62642pt x 503.50682pt.
+
+
+[9 <./Images/optim1.png>]
+
+[10 <./Images/optim2.png>]
+<Images/multi1.png, id=69, 722.7pt x 361.35pt>
+File: Images/multi1.png Graphic file (type png)
+<use Images/multi1.png>
+Package pdftex.def Info: Images/multi1.png  used on input line 209.
+(pdftex.def)             Requested size: 377.62642pt x 188.81285pt.
+<Images/multi2.png, id=70, 722.7pt x 361.35pt>
+File: Images/multi2.png Graphic file (type png)
+<use Images/multi2.png>
+Package pdftex.def Info: Images/multi2.png  used on input line 217.
+(pdftex.def)             Requested size: 377.62642pt x 188.81285pt.
+
+
+[11 <./Images/multi1.png> <./Images/multi2.png>]
+<Images/autoecodeur.png, id=76, 1133.9163pt x 262.3401pt>
+File: Images/autoecodeur.png Graphic file (type png)
+<use Images/autoecodeur.png>
+Package pdftex.def Info: Images/autoecodeur.png  used on input line 235.
+(pdftex.def)             Requested size: 472.03123pt x 109.20535pt.
+<Images/t-sne.png, id=77, 847.0044pt x 428.5611pt>
+File: Images/t-sne.png Graphic file (type png)
+<use Images/t-sne.png>
+Package pdftex.def Info: Images/t-sne.png  used on input line 242.
+(pdftex.def)             Requested size: 377.62642pt x 191.06548pt.
+
+
+[12 <./Images/autoecodeur.png>]
+<Images/k-means.png, id=83, 467.5869pt x 381.5856pt>
+File: Images/k-means.png Graphic file (type png)
+<use Images/k-means.png>
+Package pdftex.def Info: Images/k-means.png  used on input line 249.
+(pdftex.def)             Requested size: 377.62642pt x 308.18596pt.
+
+
+[13 <./Images/t-sne.png> <./Images/k-means.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 271--276
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 271--276
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 279--286
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 279--286
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 279--286
+
+ []
+
+
+
+[14{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 289--296
+
+ []
+
+File: Images/autoecodeur.png Graphic file (type png)
+<use Images/autoecodeur.png>
+Package pdftex.def Info: Images/autoecodeur.png  used on input line 299.
+(pdftex.def)             Requested size: 330.42041pt x 76.44495pt.
+<Images/loss_no_init.png, id=94, 416.2752pt x 312.2064pt>
+File: Images/loss_no_init.png Graphic file (type png)
+<use Images/loss_no_init.png>
+Package pdftex.def Info: Images/loss_no_init.png  used on input line 306.
+(pdftex.def)             Requested size: 283.22162pt x 212.42616pt.
+<Images/loss_xavier_init.png, id=95, 416.2752pt x 312.2064pt>
+File: Images/loss_xavier_init.png Graphic file (type png)
+<use Images/loss_xavier_init.png>
+Package pdftex.def Info: Images/loss_xavier_init.png  used on input line 313.
+(pdftex.def)             Requested size: 283.22162pt x 212.42616pt.
+
+
+[15 <./Images/loss_no_init.png>]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 342.
+
+
+[16 <./Images/loss_xavier_init.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 366--373
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 366--373
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 378--381
+
+ []
+
+
+
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 419--424
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 419--424
+
+ []
+
+
+
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 463--467
+
+ []
+
+<Images/tsne_mf.png, id=111, 695.2374pt x 506.6127pt>
+File: Images/tsne_mf.png Graphic file (type png)
+<use Images/tsne_mf.png>
+Package pdftex.def Info: Images/tsne_mf.png  used on input line 476.
+(pdftex.def)             Requested size: 151.05345pt x 110.06367pt.
+<Images/tsne_m.png, id=112, 616.4631pt x 506.6127pt>
+File: Images/tsne_m.png Graphic file (type png)
+<use Images/tsne_m.png>
+Package pdftex.def Info: Images/tsne_m.png  used on input line 483.
+(pdftex.def)             Requested size: 151.05345pt x 124.13278pt.
+<Images/tsne_f.png, id=113, 618.6312pt x 506.6127pt>
+File: Images/tsne_f.png Graphic file (type png)
+<use Images/tsne_f.png>
+Package pdftex.def Info: Images/tsne_f.png  used on input line 490.
+(pdftex.def)             Requested size: 151.05345pt x 123.69989pt.
+
+
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 514--524
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 514--524
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 514--524
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 514--524
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 514--524
+
+ []
+
+
+
+[20 <./Images/tsne_mf.png> <./Images/tsne_m.png> <./Images/tsne_f.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 526--529
+
+ []
+
+
+
+[21] (./main.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 5770 strings out of 473189
+ 93180 string characters out of 5719958
+ 496517 words of memory out of 5000000
+ 28978 multiletter control sequences out of 15000+600000
+ 563839 words of font info for 56 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 67i,13n,77p,1297b,374s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on main.pdf (22 pages, 4650322 bytes).
+PDF statistics:
+ 190 PDF objects out of 1000 (max. 8388607)
+ 97 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 96 words of extra memory for PDF output out of 10000 (max. 10000000)
+
