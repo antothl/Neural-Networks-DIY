@@ -254,8 +254,6 @@ En utilisant les métrique \textbf{Silhouette} et \textbf{ARI}, on a bien la con
 On remarque ainsi que les clusters ne sont pas les mêmes, et que les chiffres dont les formes sont proches ont tendance à se mélanger dans l'espace latent, ce qui explique nos problèmes de reproduction totalement fidèle des chiffres.
 Nous avons également mis en place une grid-search afin d'optimiser les valeurs des hyperparamètres pour le learning rate et la batch-size. Il s'est avéré que les meilleures valeurs étaient celles utilisées dans les expérimentations précédentes, du moins dans notre structure actuelle.
 
-Nous avons ensuite testé les mêmes choses en mettant cette fois en place des réseaux différents, tant dans le nombre de couche et de neurones que dans les fonction d'activation. Les résultats sont visibles dans la suite du rapport.
-
 \subsection{Encodeur syntaxique de mot}
 
 Nous avons choisi d’expérimenter l'architecture \textit{encodeur-décodeur} sur un problème linguistique, afin d’obtenir une représentation latente de mots français fondée uniquement sur leur forme orthographique. 
@@ -298,7 +296,7 @@ et decoder : \texttt{Linear(10, 50)} $\rightarrow$ \texttt{Linear(50, 39*5)}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{Images/encodeur-decodeur.pdf}
+    \includegraphics[width=0.7\textwidth]{Images/autoecodeur.png}
     \caption{Visualisation de l'architecture}
     \label{fig:mirror_example}
 \end{figure}
