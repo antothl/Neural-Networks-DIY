@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.30)  12 MAY 2025 16:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.30)  12 MAY 2025 16:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -434,28 +434,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 289--296
 
  []
 
-File: Images/autoecodeur.png Graphic file (type png)
-<use Images/autoecodeur.png>
-Package pdftex.def Info: Images/autoecodeur.png  used on input line 299.
-(pdftex.def)             Requested size: 330.42041pt x 76.44495pt.
-<Images/loss_no_init.png, id=94, 416.2752pt x 312.2064pt>
+<Images/encodeur-decodeur.pdf, id=94, 886.75308pt x 577.3371pt>
+File: Images/encodeur-decodeur.pdf Graphic file (type pdf)
+<use Images/encodeur-decodeur.pdf>
+Package pdftex.def Info: Images/encodeur-decodeur.pdf  used on input line 299.
+(pdftex.def)             Requested size: 330.42041pt x 215.11778pt.
+<Images/loss_no_init.png, id=95, 416.2752pt x 312.2064pt>
 File: Images/loss_no_init.png Graphic file (type png)
 <use Images/loss_no_init.png>
 Package pdftex.def Info: Images/loss_no_init.png  used on input line 306.
 (pdftex.def)             Requested size: 283.22162pt x 212.42616pt.
-<Images/loss_xavier_init.png, id=95, 416.2752pt x 312.2064pt>
+
+
+[15 <./Images/encodeur-decodeur.pdf>]
+<Images/loss_xavier_init.png, id=108, 416.2752pt x 312.2064pt>
 File: Images/loss_xavier_init.png Graphic file (type png)
 <use Images/loss_xavier_init.png>
 Package pdftex.def Info: Images/loss_xavier_init.png  used on input line 313.
 (pdftex.def)             Requested size: 283.22162pt x 212.42616pt.
 
 
-[15 <./Images/loss_no_init.png>]
+[16 <./Images/loss_no_init.png> <./Images/loss_xavier_init.png>]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 342.
 
-
-[16 <./Images/loss_xavier_init.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 366--373
 
  []
@@ -489,24 +491,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 463--467
 
  []
 
-<Images/tsne_mf.png, id=111, 695.2374pt x 506.6127pt>
+
+
+[19]
+<Images/tsne_mf.png, id=124, 695.2374pt x 506.6127pt>
 File: Images/tsne_mf.png Graphic file (type png)
 <use Images/tsne_mf.png>
 Package pdftex.def Info: Images/tsne_mf.png  used on input line 476.
 (pdftex.def)             Requested size: 151.05345pt x 110.06367pt.
-<Images/tsne_m.png, id=112, 616.4631pt x 506.6127pt>
+<Images/tsne_m.png, id=125, 616.4631pt x 506.6127pt>
 File: Images/tsne_m.png Graphic file (type png)
 <use Images/tsne_m.png>
 Package pdftex.def Info: Images/tsne_m.png  used on input line 483.
 (pdftex.def)             Requested size: 151.05345pt x 124.13278pt.
-<Images/tsne_f.png, id=113, 618.6312pt x 506.6127pt>
+<Images/tsne_f.png, id=126, 618.6312pt x 506.6127pt>
 File: Images/tsne_f.png Graphic file (type png)
 <use Images/tsne_f.png>
 Package pdftex.def Info: Images/tsne_f.png  used on input line 490.
 (pdftex.def)             Requested size: 151.05345pt x 123.69989pt.
 
-
-[19]
 Underfull \hbox (badness 10000) in paragraph at lines 514--524
 
  []
@@ -547,18 +550,18 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5770 strings out of 473189
- 93180 string characters out of 5719958
+ 5777 strings out of 473189
+ 93448 string characters out of 5719958
  496517 words of memory out of 5000000
- 28978 multiletter control sequences out of 15000+600000
+ 28985 multiletter control sequences out of 15000+600000
  563839 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,13n,77p,1297b,374s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (22 pages, 4669735 bytes).
+Output written on main.pdf (22 pages, 4677634 bytes).
 PDF statistics:
- 190 PDF objects out of 1000 (max. 8388607)
- 97 compressed objects within 1 object stream
+ 201 PDF objects out of 1000 (max. 8388607)
+ 103 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 96 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
 

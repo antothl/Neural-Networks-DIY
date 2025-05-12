@@ -1,8 +1,9 @@
 # Fdb version 4
-["pdflatex"] 1747061220.51312 "c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/Rapport/main.tex" "main.pdf" "main" 1747061230.85452 0
+["pdflatex"] 1747061592.34167 "c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/Rapport/main.tex" "main.pdf" "main" 1747061603.1316 0
   "Images/Logo_of_Sorbonne_University.svg.png" 1743068420 33408 c0675fb3f5ca6b9af6d9b3cf886d8373 ""
   "Images/autoecodeur.png" 1744894283 21611 9ae2ac21c55d245bc4628ab5b9905bcc ""
   "Images/classif_reg_lineaire.png" 1746900476 461567 3f2e7a78297a2a0a968e8c7e9b22b274 ""
+  "Images/encodeur-decodeur.pdf" 1747060273 14700 5d6e1342c8571fc485ddabe8a04b3635 ""
   "Images/k-means.png" 1744894349 47203 931604c7732b6adb8c2d1be8a80b23fd ""
   "Images/loss_no_init.png" 1746898313 22220 41351cde1e2e8dd1c0985a6ad876003a ""
   "Images/loss_xavier_init.png" 1746898313 21904 4a2bd9ccb7c2e6e8ff456233780b9c8a ""
@@ -19,7 +20,7 @@
   "Images/tsne_f.png" 1746898313 64480 214e022c75c64f9e02d75c1b89606f3c ""
   "Images/tsne_m.png" 1746898313 104369 33a9edac5c2531ea38a757d42d3a4a2a ""
   "Images/tsne_mf.png" 1746898313 285208 f522575701b4c366ced7f9f96e0a4cfc ""
-  "c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/Rapport/main.tex" 1747061209 43383 f993affa3dd91668ee6750d1b2c69db7 ""
+  "c:/Users/antoi/OneDrive/Documents/Universite/M1/S2/ML/Projet_ML/Rapport/main.tex" 1747061580 43389 8a1ea14989c50aea3228c944575f3443 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1743355632 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1743356246 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1743355978 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -91,8 +92,8 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1743358875 5546851 e7871638e4e57d7ca4525db0eb5a9d2a ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1743359103 3346022 9a07a7cfd66f2f25f7a0dab8c8dceda3 ""
   "c:/texlive/2025/texmf.cnf" 1743358852 713 e69b156964470283e0530f5060668171 ""
-  "main.aux" 1747061230 8596 ddc771a077d72b1bed152a89c1b89b9c "pdflatex"
-  "main.tex" 1747061209 43383 f993affa3dd91668ee6750d1b2c69db7 ""
+  "main.aux" 1747061602 8596 d5ebb5b1408df479a4f9357741cdec10 "pdflatex"
+  "main.tex" 1747061580 43389 8a1ea14989c50aea3228c944575f3443 ""
   (generated)
   "main.aux"
   "main.log"
