@@ -320,31 +320,21 @@ class WordEncoder_sep(Module):
         
     def backward_delta(self, x, delta):
         batch_size = x.shape[0]
-        # Étape 1 : backward des letters_decoder[i]
-        # delta.shape = (B, W, A)
         decoded_letters_delta = []
+        # On récupère les deltas de chaque couche
 
         for i in range(self.word_size):
-            # sortie de chaque lettre : (B, A)
             delta_letter_i = delta[:, i, :]  # gradient sur la sortie de lettres_decoder[i]
-            # backward_delta pour cette sortie
             d_letter_emb = self.letters_decoder[i].backward_delta(None, delta_letter_i)  # (B, E)
             decoded_letters_delta.append(d_letter_emb)
 
-        # Étape 2 : concaténation des deltas venant du word_decoder output
-        # --> forme attendue par word_decoder.backward_delta : (B, W*E)
         delta_word_decoder_out = np.concatenate(decoded_letters_delta, axis=1)  # (B, W*E)
 
-        # Étape 3 : backward sur word_decoder
         delta_word_emb = self.word_decoder.backward_delta(None, delta_word_decoder_out)  # (B, D)
 
-        # Étape 4 : backward sur word_encoder
         delta_word_input = self.word_encoder.backward_delta(None, delta_word_emb)  # (B, W*E)
 
-        # Étape 5 : split en W morceaux pour chaque lettre
         delta_letters_enc = np.split(delta_word_input, self.word_size, axis=1)  # liste de (B, E)
-
-        # Étape 6 : backward sur chaque letters_encoder[i] → récupérer delta pour x[:, i, :]
         delta_input = []
         for i in range(self.word_size):
             d_input_i = self.letters_encoder[i].backward_delta(x[:, i, :], delta_letters_enc[i])  # (B, A)
@@ -356,40 +346,34 @@ class WordEncoder_sep(Module):
     def backward_update_gradient(self, x, delta):
         batch_size = x.shape[0]
 
-        # Étape 1 : forward sur chaque letter_encoder pour récupérer les embeddings
+        # On récupère les outputs de chaque couche
+
         encoded_letters = []
         for i in range(self.word_size):
             letter_input = x[:, i, :]  # (B, A)
             encoded = self.letters_encoder[i].forward(letter_input)  # (B, E)
             encoded_letters.append(encoded)
 
-        # Concaténation → input du word_encoder
         word_input = np.concatenate(encoded_letters, axis=1)  # (B, W*E)
 
-        # Étape 2 : forward sur word_encoder
         word_embedding = self.word_encoder.forward(word_input)  # (B, D)
 
-        # Étape 3 : forward sur word_decoder
         decoded_word = self.word_decoder.forward(word_embedding)  # (B, W*E)
         decoded_letters = np.split(decoded_word, self.word_size, axis=1)  # liste de (B, E)
 
-        # Étape 4 : backward_update_gradient sur chaque letters_decoder[i]
         decoded_letters_delta = []
         for i in range(self.word_size):
             d_letter_emb = self.letters_decoder[i].backward_update_gradient(decoded_letters[i], delta[:, i, :])
             # d_letter_emb = self.letters_decoder[i].backward_delta(decoded_letters[i], delta[:, i, :])
             decoded_letters_delta.append(d_letter_emb)
 
-        # Étape 5 : backward_update_gradient sur word_decoder
         delta_word_decoder_out = np.concatenate(decoded_letters_delta, axis=1)  # (B, W*E)
         delta_word_emb = self.word_decoder.backward_update_gradient(word_embedding, delta_word_decoder_out)
         # delta_word_emb = self.word_decoder.backward_delta(word_embedding, delta_word_decoder_out)
 
-        # Étape 6 : backward_update_gradient sur word_encoder
         delta_word_input = self.word_encoder.backward_update_gradient(word_input, delta_word_emb)
         # delta_word_input = self.word_encoder.backward_delta(word_input, delta_word_emb)
 
-        # Étape 7 : backward_update_gradient sur letters_encoder[i]
         delta_letters_enc = np.split(delta_word_input, self.word_size, axis=1)
         for i in range(self.word_size):
             self.letters_encoder[i].backward_update_gradient(x[:, i, :], delta_letters_enc[i])
