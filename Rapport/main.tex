@@ -495,7 +495,7 @@ Par manque de temps, nous n’avons pas pu expérimenter ces alternatives.
     \label{fig:tsne_genre}
 \end{figure}
 
-On peut observer pour le genre qu'à défaut d'avoir des clusters bien distinct, on a tout de même une séparation sur la distribution des points selon leur genre. Avec ce run, les points masculins sont plus dense sur la composante 1 positif, pour les féminins ils sont plus répandus sur la composante 1 dans les négatifs. Cela supposerais qu'il y aurait donc bien une séparation entre féminin et masculin à partir de la structure des mots. Il est possible que cela représente sûrement les cas très disciminant (-e présent à la fin des mots féminins...).
+On peut observer pour le genre qu'à défaut d'avoir des clusters bien distincts, on a tout de même une séparation sur la distribution des points selon leur genre. Avec ce run, les points masculins sont plus denses sur la composante 1 positif, pour les féminins ils sont plus répandus sur la composante 1 dans les négatifs. Cela supposerais qu'il y aurait donc bien une séparation entre féminin et masculin à partir de la structure des mots. Il est possible que cela représente sûrement les cas très disciminant (-e présent à la fin des mots féminins...).
 
 \begin{table}[H]
 \centering
@@ -523,9 +523,11 @@ L’approche par MLP a considérablement limité les performances de l’encodag
 \\ \\
 
 \subsubsection{Expérimentations supplémentaires}
-On a implémenté deux modules supplémentaire qu'on a pas inclus dans ce rapport, on a malheureusement pas eu assez de temps pour obtenir des résultats concluants. Leur objectif commun était d'apprendre une représentation latente des lettres avant d'utiliser leur représentation dans un encodeur de mot. 
+Nous avons implémenté deux modules supplémentaires que nous n'avons pas inclus dans ce rapport, n'ayant pas pu obtenir de résultats vraiment concluants. 
 \\ \\
 Le premier modèle encode chaque lettre à l’aide d’un encodeur distinct pour chaque position dans le mot, permettant ainsi d’apprendre une représentation contextuelle spécifique à chaque emplacement. Le second modèle, plus contraint, apprend un unique encodeur partagé pour toutes les lettres, quelle que soit leur position. On a obtenu des convergences vers des loss trop élevé les rendant peu utilisable. Il s'agit certainement d'un problème d'implémentation.
 
+\section{Conclusion}
+Pour conclure, nous avons pu mettre un place notre réseau de neurones DIY et comparer ses résultats avec les résultats de la bibliothèqe \textbf{PyTorch}. Les résultats étaient ainsi assez concluants sur des tâches de classification binaires, mais également multi-classe. Nous avons ensuite pu mettre en place un auto-encodeur pour la reconstruciton d'images, obtenant des résultats plus mitigés. Enfin, nous avons pu expérimenter sur un problème linguistique, en essayant d'apprendre une représentation latente de mots à partir de leur structure orthographique. Nous avons pu voir que notre modèle était capable d'apprendre certaines propriétés linguistiques, mais qu'il restait encore des progrès à faire pour obtenir des résultats pleinement satisfaisants. Ce projet nous aura ainsi permis de comprendre pleinement l'architecture modulaire de réseaux de neurones, s'inscrivant pleinement dans notre cursus.
 
 \end{document}
